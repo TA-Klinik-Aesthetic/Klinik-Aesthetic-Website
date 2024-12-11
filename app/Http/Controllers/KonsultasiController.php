@@ -10,7 +10,7 @@ class KonsultasiController extends Controller
     public function indexWithDoctor()
     {
         // Mengambil data dari API
-        $response = Http::get('http://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi');
+        $response = Http::get('http://localhost::8080/api/konsultasi');
         $data = $response->json();
     
         // Filter data untuk konsultasi dengan dokter
