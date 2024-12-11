@@ -9,6 +9,10 @@ use App\Http\Controllers\JenisTreatmentController;
 use App\Http\Controllers\FeedbackKonsultasiController;
 use App\Http\Controllers\FeedbackTreatmentController;
 
+use App\Http\Controllers\DetailBookingTreatmentController;
+use App\Http\Controllers\BookingTreatmentController;
+
+
 
 
 /*
@@ -119,3 +123,9 @@ Route::delete('/feedback/treatment/{id}', [FeedbackTreatmentController::class, '
 
 Route::get('/feedback/treatment/{id}/detail', [FeedbackTreatmentController::class, 'show'])
     ->name('feedback.feedbackTreatment.detail');
+
+
+Route::prefix('booking')->name('booking.')->group(function () {
+    Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
+    Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
+});
