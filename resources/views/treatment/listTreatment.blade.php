@@ -27,9 +27,13 @@
                             <i class="fas fa-eye"></i>
                         </a>
 
-                        <a href="{{ route('treatment.update', $treatment['id_treatment']) }}" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
+                        <!-- Tombol Edit -->
+                        <button type="button" class="btn btn-warning btn-sm" 
+                                data-toggle="modal" 
+                                data-target="#editTreatmentModal" 
+                                onclick="populateEditModal({{ json_encode($treatment) }})">
+                            <i class="fas fa-edit"></i>
+                        </button>
 
                         <form action="{{ route('treatment.destroy', $treatment['id_treatment']) }}" method="POST" style="display: inline;">
                             @csrf
@@ -44,6 +48,7 @@
         </tbody>
     </table>
 
+    <!-- Modal Tambah Treatment -->
     <div class="modal fade" id="tambahTreatmentModal" tabindex="-1" role="dialog" aria-labelledby="tambahTreatmentModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -89,4 +94,50 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Treatment -->
+    <div class="modal fade" id="editTreatmentModal" tabindex="-1" role="dialog" aria-labelledby="editTreatmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="editTreatmentForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editTreatmentModalLabel">Edit Treatment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit_nama_treatment">Nama Treatment</label>
+                            <input type="text" name="nama_treatment" class="form-control" id="edit_nama_treatment" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_deskripsi_treatment">Deskripsi Treatment</label>
+                            <textarea name="deskripsi_treatment" class="form-control" id="edit_deskripsi_treatment" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_biaya_treatment">Biaya Treatment</label>
+                            <input type="number" name="biaya_treatment" class="form-control" id="edit_biaya_treatment" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function populateEditModal(treatment) {
+            const form = document.getElementById('editTreatmentForm');
+            form.action = `/treatment/${treatment.id_treatment}`;
+            document.getElementById('edit_nama_treatment').value = treatment.nama_treatment;
+            document.getElementById('edit_deskripsi_treatment').value = treatment.deskripsi_treatment;
+            document.getElementById('edit_biaya_treatment').value = treatment.biaya_treatment;
+        }
+    </script>
 @endsection
