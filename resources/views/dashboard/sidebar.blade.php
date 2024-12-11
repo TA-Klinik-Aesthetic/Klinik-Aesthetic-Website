@@ -50,7 +50,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    
     <!-- Nav Item - Treatment -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" data-target="#collapseTreatment"
