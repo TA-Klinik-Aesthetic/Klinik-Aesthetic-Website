@@ -61,3 +61,19 @@ Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsul
 Route::get('/konsultasi/{id}/edit', [KonsultasiController::class, 'edit'])->name('konsultasi.edit');
 Route::put('/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('konsultasi.update');
 
+
+
+
+
+
+
+
+
+
+Route::get('/managemenTreatment', function () {
+    return view('managemenTreatment');
+});
+
+Route::get('/treatment/types', function () {
+    return view('treatment.listJenisTreatment');
+});
