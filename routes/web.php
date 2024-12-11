@@ -5,7 +5,14 @@ use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TreatmentController;
-use App\Http\Controllers\DetailKonsultasiController;
+use App\Http\Controllers\JenisTreatmentController;
+use App\Http\Controllers\FeedbackKonsultasiController;
+use App\Http\Controllers\FeedbackTreatmentController;
+
+use App\Http\Controllers\DetailBookingTreatmentController;
+use App\Http\Controllers\BookingTreatmentController;
+
+
 
 
 /*
@@ -81,19 +88,51 @@ Route::put('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'updat
 
 
 
-Route::get('/managemenTreatment', function () {
-    return view('managemenTreatment');
-});
-
 Route::get('/treatment/types', function () {
     return view('treatment.listJenisTreatment');
 });
 
+Route::prefix('treatment')->group(function () {
+    Route::get('/types', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
+
+    Route::get('/lists', [TreatmentController::class, 'index'])->name('treatment.index');
+});
+
 
 Route::prefix('treatment')->group(function () {
-    Route::get('/types', [TreatmentController::class, 'index'])->name('treatment.index');
-    Route::get('/types/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
-    Route::post('/types', [TreatmentController::class, 'store'])->name('treatment.store');
-    Route::put('/types/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
-    Route::delete('/types/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+    Route::get('/', [TreatmentController::class, 'index'])->name('treatment.index');
+    Route::get('/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
+    Route::post('/', [TreatmentController::class, 'store'])->name('treatment.store');
+    Route::put('/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
+    Route::delete('/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+});
+
+Route::prefix('jenis-treatment')->group(function () {
+    Route::get('/', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
+    Route::get('/{id}', [JenisTreatmentController::class, 'show'])->name('jenisTreatment.show');
+    Route::post('/', [JenisTreatmentController::class, 'store'])->name('jenisTreatment.store');
+    Route::put('/{id}', [JenisTreatmentController::class, 'update'])->name('jenisTreatment.update');
+    Route::delete('/{id}', [JenisTreatmentController::class, 'destroy'])->name('jenisTreatment.destroy');
+});
+
+Route::get('/feedback/konsultasi', [FeedbackKonsultasiController::class, 'index'])->name('feedback.feedbackKonsultasi.index');
+Route::get('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'show'])->name('feedback.feedbackKonsultasi.show');
+Route::put('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'update'])->name('feedback.feedbackKonsultasi.update');
+Route::delete('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'destroy'])->name('feedback.feedbackKonsultasi.destroy');
+
+Route::get('/feedback/treatment/{id}/detail', [FeedbackKonsultasiController::class, 'show'])
+    ->name('feedback.feedbackKonsultasi.detail');
+
+Route::get('/feedback/treatment', [FeedbackTreatmentController::class, 'index'])->name('feedback.feedbackTreatment.index');
+Route::get('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'show'])->name('feedback.feedbackTreatment.show');
+Route::put('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'update'])->name('feedback.feedbackTreatment.update');
+Route::delete('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'destroy'])->name('feedback.feedbackTreatment.destroy');
+
+Route::get('/feedback/treatment/{id}/detail', [FeedbackTreatmentController::class, 'show'])
+    ->name('feedback.feedbackTreatment.detail');
+
+
+Route::prefix('booking')->name('booking.')->group(function () {
+    Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
+    Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
 });

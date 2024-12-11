@@ -7,85 +7,64 @@ use Illuminate\Support\Facades\Http;
 
 class TreatmentController extends Controller
 {
-    private $baseApiUrl = 'http://backend-klinik-aesthetic-production.up.railway.app/api/jenisTreatments';
+    // protected $baseApiUrl = 'http://backend-klinik-aesthetic-production.up.railway.app/api/treatments';
+    protected $baseApiUrl = 'http://127.0.0.1:8080/api/treatments';
 
-    /**
-     * Menampilkan semua jenis treatment
-     */
+
     public function index()
     {
         $response = Http::get($this->baseApiUrl);
+        $treatments = $response->json()['data'] ?? [];
 
-        if ($response->successful()) {
-            $data = $response->json();
-            return view('treatment.listJenisTreatment', ['jenisTreatments' => $data['data']]);
-        } else {
-            return back()->with('error', 'Gagal mengambil data jenis treatment.');
-        }
+        return view('treatment.listTreatment', ['treatments' => $treatments]);
     }
 
-    /**
-     * Menampilkan detail jenis treatment berdasarkan ID
-     */
     public function show($id)
     {
         $response = Http::get("{$this->baseApiUrl}/{$id}");
+        $treatment = $response->json()['data'] ?? null;
 
-        if ($response->successful()) {
-            $data = $response->json();
-            return response()->json($data);
+        if ($treatment) {
+            return view('treatment.detailTreatment', ['treatment' => $treatment]);
         } else {
-            return response()->json(['error' => 'Gagal mengambil data jenis treatment.'], $response->status());
+            return back()->with('error', 'Data treatment tidak ditemukan');
         }
     }
 
-    /**
-     * Menyimpan data jenis treatment baru (POST)
-     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_jenis_treatment' => 'required|string|max:255',
-        ]);
+        $data = $request->all();
 
-        $response = Http::post($this->baseApiUrl, $validatedData);
+        $response = Http::post($this->baseApiUrl, $data);
 
         if ($response->successful()) {
-            return back()->with('success', 'Jenis treatment berhasil ditambahkan.');
-        } else {
-            return back()->with('error', 'Gagal menambahkan jenis treatment.');
+            return redirect()->route('treatment.index')->with('success', 'Treatment berhasil ditambahkan');
         }
+
+        return back()->with('error', 'Gagal menambahkan treatment');
     }
 
-    /**
-     * Mengupdate data jenis treatment berdasarkan ID (PUT)
-     */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nama_jenis_treatment' => 'required|string|max:255',
-        ]);
+        $data = $request->all();
 
-        $response = Http::put("{$this->baseApiUrl}/{$id}", $validatedData);
+        $response = Http::put("{$this->baseApiUrl}/{$id}", $data);
 
         if ($response->successful()) {
-            return back()->with('success', 'Jenis treatment berhasil diperbarui.');
-        } else {
-            return back()->with('error', 'Gagal memperbarui jenis treatment.');
+            return redirect()->route('treatment.index')->with('success', 'Treatment berhasil diperbarui');
         }
+
+        return back()->with('error', 'Gagal memperbarui treatment');
     }
 
-    /**
-     * Menghapus data jenis treatment berdasarkan ID (DELETE)
-     */
     public function destroy($id)
     {
         $response = Http::delete("{$this->baseApiUrl}/{$id}");
 
         if ($response->successful()) {
-            return back()->with('success', 'Jenis treatment berhasil dihapus.');
-        } else {
-            return back()->with('error', 'Gagal menghapus jenis treatment.');
+            return redirect()->route('treatment.index')->with('success', 'Treatment berhasil dihapus');
         }
+
+        return back()->with('error', 'Gagal menghapus treatment');
     }
 }
