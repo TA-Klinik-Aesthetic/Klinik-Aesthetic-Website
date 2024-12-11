@@ -5,6 +5,8 @@ use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\JenisTreatmentController;
+
 
 
 /*
@@ -73,19 +75,29 @@ Route::put('/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('k
 
 
 
-Route::get('/managemenTreatment', function () {
-    return view('managemenTreatment');
-});
-
 Route::get('/treatment/types', function () {
     return view('treatment.listJenisTreatment');
 });
 
+Route::prefix('treatment')->group(function () {
+    Route::get('/types', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
+
+    Route::get('/lists', [TreatmentController::class, 'index'])->name('treatment.index');
+});
+
 
 Route::prefix('treatment')->group(function () {
-    Route::get('/types', [TreatmentController::class, 'index'])->name('treatment.index');
-    Route::get('/types/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
-    Route::post('/types', [TreatmentController::class, 'store'])->name('treatment.store');
-    Route::put('/types/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
-    Route::delete('/types/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+    Route::get('/', [TreatmentController::class, 'index'])->name('treatment.index');
+    Route::get('/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
+    Route::post('/', [TreatmentController::class, 'store'])->name('treatment.store');
+    Route::put('/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
+    Route::delete('/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+});
+
+Route::prefix('jenis-treatment')->group(function () {
+    Route::get('/', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
+    Route::get('/{id}', [JenisTreatmentController::class, 'show'])->name('jenisTreatment.show');
+    Route::post('/', [JenisTreatmentController::class, 'store'])->name('jenisTreatment.store');
+    Route::put('/{id}', [JenisTreatmentController::class, 'update'])->name('jenisTreatment.update');
+    Route::delete('/{id}', [JenisTreatmentController::class, 'destroy'])->name('jenisTreatment.destroy');
 });

@@ -49,8 +49,9 @@
         </a>
         <div id="collapseTreatment" class="collapse" aria-labelledby="headingTreatment" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/treatment/types') }}">Jenis Treatment</a>
-                <a class="collapse-item" href="{{ url('/treatment/lists') }}">List Treatment</a>
+                <!-- Menggunakan nama rute -->
+                <a class="collapse-item" href="{{ route('jenisTreatment.index') }}">Jenis Treatment</a>
+                <a class="collapse-item" href="{{ route('treatment.index') }}">List Treatment</a>
                 <a class="collapse-item" href="{{ url('/treatment/booking') }}">Booking Treatment</a>
             </div>
         </div>
