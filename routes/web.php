@@ -5,6 +5,7 @@ use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\DetailKonsultasiController;
 
 
 /*
@@ -63,6 +64,13 @@ Route::get('/konsultasi/create', [KonsultasiController::class, 'create'])->name(
 Route::post('/konsultasi', [KonsultasiController::class, 'store'])->name('konsultasi.store');
 Route::get('/konsultasi/{id}/edit', [KonsultasiController::class, 'edit'])->name('konsultasi.edit');
 Route::put('/konsultasi/{id}', [KonsultasiController::class, 'update'])->name('konsultasi.update');
+Route::delete('/konsultasi/{id}', [KonsultasiController::class, 'destroy'])->name('konsultasi.destroy');
+Route::get('/konsultasi/{id}/detail', [KonsultasiController::class, 'show'])->name('konsultasi.show');
+Route::get('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'editKeluhan'])->name('konsultasi.editKeluhan');
+Route::put('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'updateKeluhan'])->name('konsultasi.updateKeluhan');
+
+
+
 
 
 

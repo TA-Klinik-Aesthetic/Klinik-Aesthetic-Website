@@ -32,13 +32,16 @@
         </div>
         <div class="form-group">
             <label for="id_dokter">Nama Dokter</label>
-            <select class="form-control" id="id_dokter" name="id_dokter">
+            <select class="form-control" id="id_dokter" name="id_dokter" required>
                 <option value="">Pilih Dokter</option>
                 @foreach ($dokters as $dokter)
                     <option value="{{ $dokter['id_dokter'] }}">{{ $dokter['nama_dokter'] }}</option>
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <div class="d-flex gap-2">
+            <a href="{{ route('konsultasi.with-doctor') }}" class="btn btn-primary">Kembali</a>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
     </form>
 @endsection

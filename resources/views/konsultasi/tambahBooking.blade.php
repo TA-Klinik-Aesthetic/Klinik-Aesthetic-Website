@@ -23,8 +23,20 @@
                                 <td>{{ $item['waktu_konsultasi'] }}</td>
                                 <td>{{ $item['dokter']['nama_dokter'] }}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary">Detail</a>
-                                    <a href="{{ route('konsultasi.edit', $item['id_konsultasi']) }}" class="btn btn-warning">Edit</a>
+                                    <!-- Tombol Detail -->
+                                    <a href="{{ route('konsultasi.show', $item['id_konsultasi']) }}"
+                                        class="btn btn-primary">Detail</a>
+
+                                        <a href="{{ route('konsultasi.editKeluhan', $item['detail_konsultasi']['id_detail_konsultasi']) }}"
+                                        class="btn btn-warning">Edit</a>
+
+                                    <form action="{{ route('konsultasi.destroy', $item['id_konsultasi']) }}" method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
