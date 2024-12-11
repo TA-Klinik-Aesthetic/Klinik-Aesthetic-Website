@@ -17,7 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @foreach ($data->reverse() as $item)
                             <tr>
                                 <td>{{ $item['user']['nama_user'] ?? 'Tidak ada nama pelanggan' }}</td>
                                 <td>{{ $item['waktu_konsultasi'] }}</td>
