@@ -176,3 +176,10 @@ Route::prefix('produk')->group(function () {
     Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
+Route::get('/jadwal-dokter', function () {
+    return view('jadwal.jadwaldokter');
+})->name('dokter.jadwaldokter');
+
+Route::get('/jadwal-beautician', function () {
+    return view('jadwal.jadwalbeautician');
+})->name('beautician.jadwalbeautician');
