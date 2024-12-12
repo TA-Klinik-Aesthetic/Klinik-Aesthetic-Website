@@ -52,7 +52,7 @@
                 <!-- Menggunakan nama rute -->
                 <a class="collapse-item" href="{{ route('jenisTreatment.index') }}">Jenis Treatment</a>
                 <a class="collapse-item" href="{{ route('treatment.index') }}">List Treatment</a>
-                <a class="collapse-item" href="{{ route('booking.index') }}">Booking Treatment</a>
+                <a class="collapse-item" href="{{ route('bookingTreatment.index') }}">Booking Treatment</a>
             </div>
         </div>
     </li>
