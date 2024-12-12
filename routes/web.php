@@ -80,6 +80,10 @@ Route::get('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'editK
 Route::put('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'updateKeluhan'])->name('konsultasi.updateKeluhan');
 
 
+Route::get('/managemenTreatment', function () {
+    return view('managemenTreatment');
+});
+
 Route::get('/treatment/types', function () {
     return view('treatment.listJenisTreatment');
 });
@@ -88,6 +92,15 @@ Route::prefix('treatment')->group(function () {
     Route::get('/types', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
 
     Route::get('/lists', [TreatmentController::class, 'index'])->name('treatment.index');
+});
+
+
+Route::prefix('treatment')->group(function () {
+    Route::get('/types', [TreatmentController::class, 'index'])->name('treatment.index');
+    Route::get('/types/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
+    Route::post('/types', [TreatmentController::class, 'store'])->name('treatment.store');
+    Route::put('/types/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
+    Route::delete('/types/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
 });
 
 
@@ -162,3 +175,10 @@ Route::prefix('produk')->group(function () {
     Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
+Route::get('/jadwal-dokter', function () {
+    return view('jadwal.jadwaldokter');
+})->name('dokter.jadwaldokter');
+
+Route::get('/jadwal-beautician', function () {
+    return view('jadwal.jadwalbeautician');
+})->name('beautician.jadwalbeautician');
