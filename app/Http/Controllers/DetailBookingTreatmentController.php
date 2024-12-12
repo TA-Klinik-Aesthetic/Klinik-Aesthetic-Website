@@ -36,4 +36,45 @@ class DetailBookingTreatmentController extends Controller
             return back()->with('error', 'Gagal mengirim data');
         }
     }
+
+    public function show($id)
+    {
+        $response = Http::get("{$this->baseApiUrl}/{$id}");
+
+        if ($response->successful()) {
+            $data = $response->json();
+
+            $data['potongan_harga'] = $data['treatment']['biaya_treatment'] * 0.1;
+
+            return view('treatment.detailBookingTreatment', ['detail' => $data]);
+        } else {
+            return back()->with('error', 'Gagal mengambil data detail');
+        }
+
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $response = Http::put("{$this->baseApiUrl}/{$id}", [
+            'harga_akhir_treatment' => $request->harga_akhir_treatment,
+            'potongan_harga' => $request->potongan_harga,
+        ]);
+
+        if ($response->successful()) {
+            return back()->with('success', 'Data berhasil diperbarui');
+        } else {
+            return back()->with('error', 'Gagal memperbarui data');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $response = Http::delete("{$this->baseApiUrl}/{$id}");
+
+        if ($response->successful()) {
+            return back()->with('success', 'Data berhasil dihapus');
+        } else {
+            return back()->with('error', 'Gagal menghapus data');
+        }
+    }
 }

@@ -137,10 +137,12 @@ Route::prefix('booking')->name('bookingTreatment.')->group(function () {
     Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [BookingTreatmentController::class, 'edit'])->name('edit');
     Route::delete('/{id}', [BookingTreatmentController::class, 'destroy'])->name('destroy');
-    // Route::post('/detail', [DetailBookingTreatmentController::class, 'store'])->name('booking.detailBooking.store');
 });
 
 
 Route::prefix('detailBooking')->name('detailBooking.')->group(function () {
     Route::post('/store', [DetailBookingTreatmentController::class, 'store'])->name('store');
+    Route::get('/{id}', [DetailBookingTreatmentController::class, 'show'])->name('show');
+    Route::put('/{id}', [DetailBookingTreatmentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [DetailBookingTreatmentController::class, 'destroy'])->name('destroy');
 });
