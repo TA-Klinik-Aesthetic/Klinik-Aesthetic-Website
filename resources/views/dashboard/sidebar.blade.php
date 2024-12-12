@@ -64,6 +64,13 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/jadwal-dokter') }}">
+            <span>Jadwal Dokter</span>
+        </a>
+    </li>
+
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

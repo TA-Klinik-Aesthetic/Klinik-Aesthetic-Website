@@ -152,3 +152,12 @@ Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->na
 Route::get('pembelian-produk/create', [PembelianProdukController::class, 'create'])->name('pembelian-produk.create'); // Menampilkan form tambah pembelian
 Route::post('pembelian-produk/store', [PembelianProdukController::class, 'store'])->name('pembelian-produk.store'); // Menyimpan data pembelian
 Route::get('/pembelian-produk/{id}', [PembelianProdukController::class, 'show'])->name('pembelian-produk.show');// Rute untuk menampilkan detail pembelian produk
+
+
+Route::get('/jadwal-dokter', function () {
+    return view('jadwal.jadwaldokter');
+})->name('dokter.jadwaldokter');
+
+Route::get('/jadwal-beautician', function () {
+    return view('jadwal.jadwalbeautician');
+})->name('beautician.jadwalbeautician');
