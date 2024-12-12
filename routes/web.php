@@ -123,7 +123,6 @@ Route::prefix('feedback/treatment')->name('feedback.feedbackTreatment.')->group(
     Route::delete('/{id}', [FeedbackTreatmentController::class, 'destroy'])->name('destroy');
 });
 
-
 Route::prefix('booking')->name('bookingTreatment.')->group(function () {
     Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
     Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');

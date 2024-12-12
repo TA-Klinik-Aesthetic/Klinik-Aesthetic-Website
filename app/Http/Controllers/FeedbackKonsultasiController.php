@@ -29,7 +29,6 @@ class FeedbackKonsultasiController extends Controller
         if ($response->successful()) {
             $feedback = $response->json();
 
-            // Tampilkan halaman detail feedback konsultasi
             return view('feedback.detailFeedbackKonsultasi', compact('feedback'));
         } else {
             return back()->with('error', 'Tidak dapat mengambil detail feedback konsultasi.');
