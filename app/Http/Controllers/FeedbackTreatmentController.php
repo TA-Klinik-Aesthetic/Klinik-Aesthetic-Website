@@ -22,6 +22,22 @@ class FeedbackTreatmentController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $response = Http::get("{$this->baseApiUrl}/{$id}");
+
+            if ($response->successful()) {
+                $feedback = $response->json();
+                return view('feedback.feedbackDetail', compact('feedback'));
+            } else {
+                return back()->with('error', 'Failed to fetch feedback details.');
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while fetching feedback details.');
+        }
+    }
+
     // Store Feedback Treatments
     public function store(Request $request)
     {

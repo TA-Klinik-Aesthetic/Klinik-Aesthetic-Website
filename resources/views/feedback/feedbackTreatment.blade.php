@@ -22,8 +22,12 @@
                         <td>{{ $feedback['rating'] }}</td>
                         <td>{{ $feedback['teks_feedback'] }}</td>
                         <td>
-                            <a href="{{ route('feedback.feedbackTreatment.detail', $feedback['id_booking_treatment']) }}" class="btn btn-primary btn-sm">Detail</a>
-                        </td>
+                            @if (isset($feedback['id_booking_treatment']))
+                            <a href="{{ route('feedback.feedbackTreatment.show', $feedback['id_booking_treatment']) }}" class="btn btn-primary btn-sm">Detail</a>
+                        @else
+                            <span class="text-danger">ID tidak ditemukan</span>
+                        @endif                        
+                    </td>
                     </tr>
                 @endforeach
             </tbody>
