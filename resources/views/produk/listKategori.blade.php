@@ -19,6 +19,20 @@
                             <tr>
                                 <td>{{ $item['id_kategori'] }}</td>
                                 <td>{{ $item['nama_kategori'] }}</td>
+                                <td>
+
+                                    <a href="{{ route('kategori.edit', $item['id_kategori']) }}"
+                                    class="btn btn-warning">Edit</a>
+
+                                    <form action="{{ route('kategori.destroy', $item['id_kategori']) }}" method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                    </form>
+
+                                </td>
                             </tr>
                         @empty
                             <tr>

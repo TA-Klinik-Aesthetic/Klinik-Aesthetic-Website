@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\AuthController;
-
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\DetailKonsultasiController;
 
@@ -99,31 +99,12 @@ Route::prefix('kategori')->group(function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 });
 
-
 // Produkiezz
 Route::prefix('produk')->group(function () {
-    // Route untuk menampilkan semua produk
-    Route::get('/', function () {
-        return view('produk.index'); // Halaman daftar produk
-    });
-
-    // Route untuk menampilkan form tambah produk
-    Route::get('/create', function () {
-        return view('produk.create'); // Halaman tambah produk
-    });
-
-    // Route untuk menampilkan detail produk
-    Route::get('/{id}', function ($id) {
-        return view('produk.show', ['id' => $id]); // Halaman detail produk
-    });
-
-    // Route untuk menampilkan form edit produk
-    Route::get('/{id}/edit', function ($id) {
-        return view('produk.edit', ['id' => $id]); // Halaman edit produk
-    });
-
-    // Route untuk menampilkan produk berdasarkan kategori
-    Route::get('/kategori/{id_kategori}', function ($id_kategori) {
-        return view('produk.kategori', ['id_kategori' => $id_kategori]); // Halaman produk kategori
-    });
+    Route::get('/', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
