@@ -22,6 +22,19 @@ class FeedbackKonsultasiController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $response = Http::get("{$this->baseApiUrl}/{$id}");
+
+        if ($response->successful()) {
+            $feedback = $response->json();
+
+            return view('feedback.detailFeedbackKonsultasi', compact('feedback'));
+        } else {
+            return back()->with('error', 'Tidak dapat mengambil detail feedback konsultasi.');
+        }
+    }
+
     // Store Feedback Konsultasi
     public function store(Request $request)
     {

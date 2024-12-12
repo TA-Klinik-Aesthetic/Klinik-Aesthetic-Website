@@ -117,22 +117,20 @@ Route::prefix('jenis-treatment')->group(function () {
     Route::delete('/{id}', [JenisTreatmentController::class, 'destroy'])->name('jenisTreatment.destroy');
 });
 
-Route::get('/feedback/konsultasi', [FeedbackKonsultasiController::class, 'index'])->name('feedback.feedbackKonsultasi.index');
-Route::get('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'show'])->name('feedback.feedbackKonsultasi.show');
-Route::put('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'update'])->name('feedback.feedbackKonsultasi.update');
-Route::delete('/feedback/konsultasi/{id}', [FeedbackKonsultasiController::class, 'destroy'])->name('feedback.feedbackKonsultasi.destroy');
+Route::prefix('feedback/konsultasi')->name('feedback.feedbackKonsultasi.')->group(function () {
+    Route::get('/', [FeedbackKonsultasiController::class, 'index'])->name('index');
+    Route::get('/{id}', [FeedbackKonsultasiController::class, 'show'])->name('show');
+    Route::put('/{id}', [FeedbackKonsultasiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FeedbackKonsultasiController::class, 'destroy'])->name('destroy');
+});
 
-Route::get('/feedback/treatment/{id}/detail', [FeedbackKonsultasiController::class, 'show'])
-    ->name('feedback.feedbackKonsultasi.detail');
 
-Route::get('/feedback/treatment', [FeedbackTreatmentController::class, 'index'])->name('feedback.feedbackTreatment.index');
-Route::get('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'show'])->name('feedback.feedbackTreatment.show');
-Route::put('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'update'])->name('feedback.feedbackTreatment.update');
-Route::delete('/feedback/treatment/{id}', [FeedbackTreatmentController::class, 'destroy'])->name('feedback.feedbackTreatment.destroy');
-
-Route::get('/feedback/treatment/{id}/detail', [FeedbackTreatmentController::class, 'show'])
-    ->name('feedback.feedbackTreatment.detail');
-
+Route::prefix('feedback/treatment')->name('feedback.feedbackTreatment.')->group(function () {
+    Route::get('/', [FeedbackTreatmentController::class, 'index'])->name('index');
+    Route::get('/{id}', [FeedbackTreatmentController::class, 'show'])->name('show');
+    Route::put('/{id}', [FeedbackTreatmentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FeedbackTreatmentController::class, 'destroy'])->name('destroy');
+});
 
 Route::prefix('booking')->name('bookingTreatment.')->group(function () {
     Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');

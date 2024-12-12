@@ -22,6 +22,19 @@ class FeedbackTreatmentController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $response = Http::get("{$this->baseApiUrl}/{$id}");
+    
+        if ($response->successful()) {
+            $feedback = $response->json();
+    
+            return view('feedback.detailFeedbackTreatment', compact('feedback'));
+        } else {
+            return back()->with('error', 'Tidak dapat mengambil detail feedback treatment.');
+        }
+    }
+
     // Store Feedback Treatments
     public function store(Request $request)
     {

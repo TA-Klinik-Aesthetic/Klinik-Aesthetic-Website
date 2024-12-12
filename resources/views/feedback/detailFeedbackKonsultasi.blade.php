@@ -3,7 +3,7 @@
 @section('content')
     <h1>Detail Feedback Konsultasi</h1>
 
-    <form action="{{ route('feedback.konsultasi.update', $feedback['id_konsultasi']) }}" method="POST">
+    <form action="{{ route('feedback.feedbackKonsultasi.update', $feedback['id_konsultasi']) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -21,7 +21,7 @@
         <button type="submit" class="btn btn-success">Update</button>
     </form>
 
-    <form action="{{ route('feedback.konsultasi.delete', $feedback['id_konsultasi']) }}" method="POST" class="mt-3">
+    <form action="{{ route('feedback.feedbackKonsultasi.destroy', $feedback['id_konsultasi']) }}" method="POST" class="mt-3">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus feedback ini?')">Hapus</button>
