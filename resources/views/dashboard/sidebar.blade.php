@@ -19,6 +19,23 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Nav Item - Produk -->
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseProduk" aria-expanded="true"
+            aria-controls="collapseProduk">
+            <span>Produk</span>
+        </a>
+        <div id="collapseProduk" class="collapse" aria-labelledby="headingProduk" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/kategori') }}">Lihat Kategori</a>
+                <a class="collapse-item" href="{{ url('/produk') }}">Lihat Produk</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
     <!-- Nav Item - Konsultasi -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" data-target="#collapseKonsultasi" aria-expanded="true"

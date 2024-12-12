@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\AuthController;
 
@@ -70,17 +71,6 @@ Route::get('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'editK
 Route::put('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'updateKeluhan'])->name('konsultasi.updateKeluhan');
 
 
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/managemenTreatment', function () {
     return view('managemenTreatment');
 });
@@ -96,4 +86,44 @@ Route::prefix('treatment')->group(function () {
     Route::post('/types', [TreatmentController::class, 'store'])->name('treatment.store');
     Route::put('/types/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
     Route::delete('/types/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+});
+
+
+// Kategorizes
+Route::prefix('kategori')->group(function () {
+    Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
+    Route::post('/', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::put('/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+});
+
+
+// Produkiezz
+Route::prefix('produk')->group(function () {
+    // Route untuk menampilkan semua produk
+    Route::get('/', function () {
+        return view('produk.index'); // Halaman daftar produk
+    });
+
+    // Route untuk menampilkan form tambah produk
+    Route::get('/create', function () {
+        return view('produk.create'); // Halaman tambah produk
+    });
+
+    // Route untuk menampilkan detail produk
+    Route::get('/{id}', function ($id) {
+        return view('produk.show', ['id' => $id]); // Halaman detail produk
+    });
+
+    // Route untuk menampilkan form edit produk
+    Route::get('/{id}/edit', function ($id) {
+        return view('produk.edit', ['id' => $id]); // Halaman edit produk
+    });
+
+    // Route untuk menampilkan produk berdasarkan kategori
+    Route::get('/kategori/{id_kategori}', function ($id_kategori) {
+        return view('produk.kategori', ['id_kategori' => $id_kategori]); // Halaman produk kategori
+    });
 });
