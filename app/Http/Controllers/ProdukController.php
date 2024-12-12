@@ -24,7 +24,8 @@ class ProdukController extends Controller
     // Menampilkan form untuk membuat produk baru
     public function create()
     {
-        return view('produk.create');
+        $kategoriList = Http::get('http://localhost:8080/api/kategori')->json();
+        return view('produk.createProduk', compact('kategoriList'));
     }
 
     // Menyimpan data produk baru
