@@ -12,6 +12,8 @@ use App\Http\Controllers\FeedbackTreatmentController;
 use App\Http\Controllers\DetailBookingTreatmentController;
 use App\Http\Controllers\BookingTreatmentController;
 
+use App\Http\Controllers\PembelianProdukController;
+
 
 
 
@@ -146,3 +148,9 @@ Route::prefix('detailBooking')->name('detailBooking.')->group(function () {
     Route::put('/{id}', [DetailBookingTreatmentController::class, 'update'])->name('update');
     Route::delete('/{id}', [DetailBookingTreatmentController::class, 'destroy'])->name('destroy');
 });
+
+// Route untuk halaman pembelian produk
+Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->name('pembelianProduk.index');
+Route::get('pembelian-produk/create', [PembelianProdukController::class, 'create'])->name('pembelian-produk.create'); // Menampilkan form tambah pembelian
+Route::post('pembelian-produk/store', [PembelianProdukController::class, 'store'])->name('pembelian-produk.store'); // Menyimpan data pembelian
+Route::get('/pembelian-produk/{id}', [PembelianProdukController::class, 'show'])->name('pembelian-produk.show');// Rute untuk menampilkan detail pembelian produk

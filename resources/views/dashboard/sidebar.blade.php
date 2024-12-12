@@ -25,7 +25,8 @@
             aria-controls="collapseKonsultasi">
             <span>Konsultasi</span>
         </a>
-        <div id="collapseKonsultasi" class="collapse" aria-labelledby="headingKonsultasi" data-parent="#accordionSidebar">
+        <div id="collapseKonsultasi" class="collapse" aria-labelledby="headingKonsultasi"
+            data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ url('/konsultasi/without-doctor') }}">Lihat Booking</a>
                 <a class="collapse-item" href="{{ url('/konsultasi/with-doctor') }}">Tambah Booking</a>
@@ -33,28 +34,13 @@
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
     <!-- Nav Item - Treatment -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" data-target="#collapseTreatment" aria-expanded="true"
             aria-controls="collapseTreatment">
-            <span>Treatment</span>
-        </a>
-        <div id="collapseTreatment" class="collapse" aria-labelledby="headingTreatment" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/treatment/list') }}">List Jenis</a>
-                <a class="collapse-item" href="{{ url('/treatment/list') }}">List Treatment</a>
-                <a class="collapse-item" href="{{ url('/treatment/booking') }}">Booking Treatment</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    
-    <!-- Nav Item - Treatment -->
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target="#collapseTreatment"
-            aria-expanded="true" aria-controls="collapseTreatment">
             <span>Treatment</span>
         </a>
         <div id="collapseTreatment" class="collapse" aria-labelledby="headingTreatment" data-parent="#accordionSidebar">
@@ -67,13 +53,24 @@
         </div>
     </li>
 
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Pembelian Produk -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('pembelianProduk.index') }}">
+            <span>Pembelian Produk</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Feedback -->
     <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target="#collapseFeedback"
-            aria-expanded="true" aria-controls="collapseFeedback">
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseFeedback" aria-expanded="true"
+            aria-controls="collapseFeedback">
             <span>Feedback</span>
         </a>
         <div id="collapseFeedback" class="collapse" aria-labelledby="headingFeedback" data-parent="#accordionSidebar">
