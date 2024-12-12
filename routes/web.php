@@ -104,6 +104,59 @@ Route::prefix('treatment')->group(function () {
 });
 
 
+Route::prefix('treatment')->group(function () {
+    Route::get('/', [TreatmentController::class, 'index'])->name('treatment.index');
+    Route::get('/{id}', [TreatmentController::class, 'show'])->name('treatment.show');
+    Route::post('/', [TreatmentController::class, 'store'])->name('treatment.store');
+    Route::put('/{id}', [TreatmentController::class, 'update'])->name('treatment.update');
+    Route::delete('/{id}', [TreatmentController::class, 'destroy'])->name('treatment.destroy');
+});
+
+Route::prefix('jenis-treatment')->group(function () {
+    Route::get('/', [JenisTreatmentController::class, 'index'])->name('jenisTreatment.index');
+    Route::get('/{id}', [JenisTreatmentController::class, 'show'])->name('jenisTreatment.show');
+    Route::post('/', [JenisTreatmentController::class, 'store'])->name('jenisTreatment.store');
+    Route::put('/{id}', [JenisTreatmentController::class, 'update'])->name('jenisTreatment.update');
+    Route::delete('/{id}', [JenisTreatmentController::class, 'destroy'])->name('jenisTreatment.destroy');
+});
+
+Route::prefix('feedback/konsultasi')->name('feedback.feedbackKonsultasi.')->group(function () {
+    Route::get('/', [FeedbackKonsultasiController::class, 'index'])->name('index');
+    Route::get('/{id}', [FeedbackKonsultasiController::class, 'show'])->name('show');
+    Route::put('/{id}', [FeedbackKonsultasiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FeedbackKonsultasiController::class, 'destroy'])->name('destroy');
+});
+
+
+Route::prefix('feedback/treatment')->name('feedback.feedbackTreatment.')->group(function () {
+    Route::get('/', [FeedbackTreatmentController::class, 'index'])->name('index');
+    Route::get('/{id}', [FeedbackTreatmentController::class, 'show'])->name('show');
+    Route::put('/{id}', [FeedbackTreatmentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FeedbackTreatmentController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('booking')->name('bookingTreatment.')->group(function () {
+    Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
+    Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [BookingTreatmentController::class, 'edit'])->name('edit');
+    Route::delete('/{id}', [BookingTreatmentController::class, 'destroy'])->name('destroy');
+});
+
+
+Route::prefix('detailBooking')->name('detailBooking.')->group(function () {
+    Route::post('/store', [DetailBookingTreatmentController::class, 'store'])->name('store');
+    Route::get('/{id}', [DetailBookingTreatmentController::class, 'show'])->name('show');
+    Route::put('/{id}', [DetailBookingTreatmentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [DetailBookingTreatmentController::class, 'destroy'])->name('destroy');
+});
+
+// Route untuk halaman pembelian produk
+Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->name('pembelianProduk.index');
+Route::get('pembelian-produk/create', [PembelianProdukController::class, 'create'])->name('pembelian-produk.create'); // Menampilkan form tambah pembelian
+Route::post('pembelian-produk/store', [PembelianProdukController::class, 'store'])->name('pembelian-produk.store'); // Menyimpan data pembelian
+Route::get('/pembelian-produk/{id}', [PembelianProdukController::class, 'show'])->name('pembelian-produk.show');// Rute untuk menampilkan detail pembelian produk
+
+
 // Kategorizes
 Route::prefix('kategori')->group(function () {
     Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
