@@ -80,17 +80,6 @@ Route::get('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'editK
 Route::put('/konsultasi/edit-keluhan/{id}', [KonsultasiController::class, 'updateKeluhan'])->name('konsultasi.updateKeluhan');
 
 
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/treatment/types', function () {
     return view('treatment.listJenisTreatment');
 });
@@ -153,3 +142,23 @@ Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->na
 Route::get('pembelian-produk/create', [PembelianProdukController::class, 'create'])->name('pembelian-produk.create'); // Menampilkan form tambah pembelian
 Route::post('pembelian-produk/store', [PembelianProdukController::class, 'store'])->name('pembelian-produk.store'); // Menyimpan data pembelian
 Route::get('/pembelian-produk/{id}', [PembelianProdukController::class, 'show'])->name('pembelian-produk.show');// Rute untuk menampilkan detail pembelian produk
+
+// Kategorizes
+Route::prefix('kategori')->group(function () {
+    Route::get('/', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::get('/create', [KategoriController::class, 'create'])->name('kategori.create');
+    Route::post('/', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::get('/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+    Route::put('/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::delete('/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+});
+
+// Produkiezz
+Route::prefix('produk')->group(function () {
+    Route::get('/', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+});
