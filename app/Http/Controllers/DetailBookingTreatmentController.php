@@ -7,54 +7,33 @@ use Illuminate\Support\Facades\Http;
 
 class DetailBookingTreatmentController extends Controller
 {
-    protected $baseApiUrl = 'http://127.0.0.1:8080/api';
+    protected $baseApiUrl = 'http://127.0.0.1:8080/api/detailBookingTreatments';
 
-    // GET: Fetch all detail booking treatments
-    public function index()
-    {
-        $response = Http::get("{$this->baseApiUrl}/detailBookingTreatments");
-
-        if ($response->successful()) {
-            $bookings = $response->json();
-            return view('treatment.bookingTreatment', compact('bookings')); 
-        } else {
-            return view('treatment.bookingTreatment', ['error' => 'Failed to fetch data.']);
-        }
-    }
-
-    // POST: Store new detail booking treatment
     public function store(Request $request)
     {
-        $response = Http::post("{$this->baseApiUrl}/detailBookingTreatments", $request->all());
 
-        if ($response->successful()) {
-            return redirect()->route('detailBookingTreatment.index')->with('success', 'Detail booking treatment created successfully.');
-        } else {
-            return redirect()->route('detailBookingTreatment.index')->with('error', 'Failed to create detail booking treatment.');
+        $details = [];
+
+        foreach ($request->details as $detail) {
+            $details[] = [
+                'id_treatment' => $detail['id_treatment'],
+                'id_dokter' => $detail['id_dokter'],
+                'id_beautician' => $detail['id_beautician'],
+            ];
         }
-    }
-
-    // PUT: Update existing detail booking treatment
-    public function update(Request $request, $id)
-    {
-        $response = Http::put("{$this->baseApiUrl}/detailBookingTreatments/{$id}", $request->all());
-
-        if ($response->successful()) {
-            return redirect()->route('detailBookingTreatment.index')->with('success', 'Detail booking treatment updated successfully.');
-        } else {
-            return redirect()->route('detailBookingTreatment.index')->with('error', 'Failed to update detail booking treatment.');
-        }
-    }
-
-    // DELETE: Remove a detail booking treatment
-    public function destroy($id)
-    {
-        $response = Http::delete("{$this->baseApiUrl}/detailBookingTreatments/{$id}");
+    
+        $response = Http::post($this->baseApiUrl, [
+            'id_user' => $request->id_user,
+            'waktu_treatment' => $request->waktu_treatment,
+            'status_booking_treatment' => $request->status_booking_treatment,
+            'potongan_harga' => $request->potongan_harga,
+            'details' => $details,
+        ]);
 
         if ($response->successful()) {
-            return redirect()->route('detailBookingTreatment.index')->with('success', 'Detail booking treatment deleted successfully.');
+            return back()->with('success', 'Data berhasil dikirim');
         } else {
-            return redirect()->route('detailBookingTreatment.index')->with('error', 'Failed to delete detail booking treatment.');
+            return back()->with('error', 'Gagal mengirim data');
         }
     }
 }
