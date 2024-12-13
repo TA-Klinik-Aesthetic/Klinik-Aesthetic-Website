@@ -10,7 +10,7 @@ class ProdukController extends Controller
     // Menampilkan daftar produk
     public function index()
     {
-        $response = Http::get('http://localhost:8080/api/produk'); // Ganti URL ini sesuai API Anda
+        $response = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/produk'); // Ganti URL ini sesuai API Anda
 
         if ($response->successful()) {
             $produkList = $response->json();
@@ -24,14 +24,14 @@ class ProdukController extends Controller
     // Menampilkan form untuk membuat produk baru
     public function create()
     {
-        $kategoriList = Http::get('http://localhost:8080/api/kategori')->json();
+        $kategoriList = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/kategori')->json();
         return view('produk.createProduk', compact('kategoriList'));
     }
 
     // Menyimpan data produk baru
     public function store(Request $request)
     {
-        $response = Http::post('http://localhost:8080/api/produk', $request->all());
+        $response = Http::post('https://backend-klinik-aesthetic-production.up.railway.app/api/produk', $request->all());
 
         if ($response->successful()) {
             return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
@@ -43,7 +43,7 @@ class ProdukController extends Controller
     // Menampilkan form edit produk
     public function edit($id)
     {
-        $response = Http::get("http://localhost:8080/api/produk/$id");
+        $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/produk/$id");
 
         if ($response->successful()) {
             $produk = $response->json();
@@ -56,7 +56,7 @@ class ProdukController extends Controller
     // Memperbarui data produk
     public function update(Request $request, $id)
     {
-        $response = Http::put("http://localhost:8080/api/produk/$id", $request->all());
+        $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/produk/$id", $request->all());
 
         if ($response->successful()) {
             return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
@@ -68,7 +68,7 @@ class ProdukController extends Controller
     // Menghapus produk
     public function destroy($id)
     {
-        $response = Http::delete("http://localhost:8080/api/produk/$id");
+        $response = Http::delete("https://backend-klinik-aesthetic-production.up.railway.app/api/produk/$id");
 
         if ($response->successful()) {
             return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');

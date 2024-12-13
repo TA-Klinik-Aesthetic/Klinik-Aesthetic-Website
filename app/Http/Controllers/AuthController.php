@@ -30,7 +30,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $response = Http::post('http://127.0.0.1:8080/api/register', [
+        $response = Http::post('https://backend-klinik-aesthetic-production.up.railway.app/api/register', [
             'nama_user' => $request->name,
             'no_telp' => $request->phone,
             'email' => $request->email,
@@ -52,7 +52,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $response = Http::post('http://127.0.0.1:8080/api/login', [
+        $response = Http::post('https://backend-klinik-aesthetic-production.up.railway.app/api/login', [
             'email' => $request->email,
             'password' => $request->password,
         ]);
@@ -92,7 +92,7 @@ class AuthController extends Controller
             Auth::logout();
 
             // Redirect ke landing page
-            return redirect('/'); // Ganti dengan route atau halaman landing Anda
+            return redirect('/'); // Ganti dengan route atau halaman landing
         }
 
         return response()->json(['error' => 'No authenticated user.'], 401);

@@ -10,7 +10,7 @@ class KategoriController extends Controller
     public function index()
     {
         // Mengambil data dari API
-        $response = Http::get('http://localhost:8080/api/kategori/');
+        $response = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/');
 
         // Periksa apakah permintaan API berhasil
         if ($response->successful()) {
@@ -33,7 +33,7 @@ class KategoriController extends Controller
     {
         $data = $request->all();
 
-        $response = Http::post("http://localhost:8080/api/kategori", $data);
+        $response = Http::post("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori", $data);
 
         if ($response->successful()) {
             return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan');
@@ -45,7 +45,7 @@ class KategoriController extends Controller
     public function edit($id)
     {
         // Ambil data kategori berdasarkan ID
-        $response = Http::get("http://localhost:8080/api/kategori/{$id}");
+        $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}");
         $item = $response->json()['data'];
 
         return view('kategori.edit');
@@ -61,7 +61,7 @@ class KategoriController extends Controller
 
 
         // Kirim data kategori ke API
-        $response = Http::put("http://localhost:8080/api/kategori/{$id}", $data);
+        $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}", $data);
 
         if ($response->successful()) {
             session()->flash('success', 'Nama Kategori berhasil diperbarui!');
@@ -74,7 +74,7 @@ class KategoriController extends Controller
 
     public function destroy($id)
     {
-        $response = Http::delete("http://localhost:8080/api/kategori/{$id}");
+        $response = Http::delete("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}");
 
         if ($response->successful()) {
             return redirect()->route('kategori.index')->with('success', 'Data berhasil dihapus');

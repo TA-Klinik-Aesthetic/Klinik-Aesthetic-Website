@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class BookingTreatmentController extends Controller
 {
-    protected $baseApiUrl = 'http://127.0.0.1:8080/api/bookingTreatments';
+    protected $baseApiUrl = 'https://backend-klinik-aesthetic-production.up.railway.app/api/bookingTreatments';
 
     public function index()
     {
