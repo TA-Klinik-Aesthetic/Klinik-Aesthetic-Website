@@ -53,7 +53,7 @@
     });
 
     function loadJadwal() {
-        axios.get('http://127.0.0.1:8080/api/jadwal-beautician')
+        axios.get('https://backend-klinik-aesthetic-production.up.railway.app/api/jadwal-beautician')
             .then(response => {
                 const data = response.data;
                 const grouped = data.reduce((acc, jadwal) => {
@@ -123,7 +123,7 @@
             jam_selesai: document.getElementById('jamSelesai').value,
         };
 
-        const url = id ? `http://127.0.0.1:8080/api/jadwal-beautician/${id}` : 'http://127.0.0.1:8080/api/jadwal-beautician';
+        const url = id ? `https://backend-klinik-aesthetic-production.up.railway.app/api/jadwal-beautician/${id}` : 'http://127.0.0.1:8080/api/jadwal-beautician';
         const method = id ? 'put' : 'post';
 
         axios[method](url, id ? { ...data, id_jadwal_praktik_beautician: id } : data)

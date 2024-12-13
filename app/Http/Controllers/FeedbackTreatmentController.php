@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class FeedbackTreatmentController extends Controller
 {
-    protected $baseApiUrl = 'http://127.0.0.1:8080/api/feedbackTreatments';
+    protected $baseApiUrl = 'https://backend-klinik-aesthetic-production.up.railway.app/api/feedbackTreatments';
 
     // Display Feedback Treatments
     public function index()

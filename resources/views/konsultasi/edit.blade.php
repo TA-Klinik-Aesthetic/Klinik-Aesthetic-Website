@@ -16,7 +16,7 @@
     @endif
 
     <!-- Form -->
-    <form action="{{ route('konsultasi.update', $konsultasi['id']) }}" method="POST">
+    <form action="{{ route('konsultasi.update', $konsultasi['id_konsultasi']) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -24,8 +24,8 @@
             <select class="form-control" id="id_dokter" name="id_dokter" required>
                 <option value="">Pilih Dokter</option>
                 @foreach ($dokters as $dokter)
-                    <option value="{{ $dokter['id'] }}" 
-                        {{ $dokter['id'] == $konsultasi['id_dokter'] ? 'selected' : '' }}>
+                    <option value="{{ $dokter['id_dokter'] }}" 
+                        {{ $dokter['id_dokter'] == $konsultasi['id_dokter'] ? 'selected' : '' }}>
                         {{ $dokter['nama_dokter'] }}
                     </option>
                 @endforeach

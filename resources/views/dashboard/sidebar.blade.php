@@ -53,6 +53,22 @@
         </div>
     </li>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Produk -->
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseProduk" aria-expanded="true"
+            aria-controls="collapseProduk">
+            <span>Produk</span>
+        </a>
+        <div id="collapseProduk" class="collapse" aria-labelledby="headingProduk" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/kategori') }}">Lihat Kategori</a>
+                <a class="collapse-item" href="{{ url('/produk') }}">Lihat Produk</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -60,9 +76,12 @@
     <!-- Nav Item - Pembelian Produk -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('pembelianProduk.index') }}">
-            <span>Pembelian Produk</span>
+            <span>Penjualan Produk</span>
         </a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
 
     <li class="nav-item">
         <a class="nav-link" href="{{ url('/jadwal-dokter') }}">
@@ -83,7 +102,8 @@
         <div id="collapseFeedback" class="collapse" aria-labelledby="headingFeedback" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <!-- Menggunakan nama rute -->
-                <a class="collapse-item" href="{{ route('feedback.feedbackKonsultasi.index') }}">Feedback Konsultasi</a>
+                <a class="collapse-item" href="{{ route('feedback.feedbackKonsultasi.index') }}">Feedback
+                    Konsultasi</a>
                 <a class="collapse-item" href="{{ route('feedback.feedbackTreatment.index') }}">Feedback Treatments</a>
             </div>
         </div>
