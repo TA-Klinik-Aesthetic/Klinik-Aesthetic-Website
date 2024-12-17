@@ -108,3 +108,9 @@
 </body>
 
 </html>
+
+{{-- <script>
+    @if (session('token'))
+        console.log('User Token:', '{{ session('token') }}');
+    @endif
+</script> --}}

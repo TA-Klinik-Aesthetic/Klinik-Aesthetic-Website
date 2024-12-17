@@ -37,19 +37,10 @@
                     <td>{{ number_format($booking['potongan_harga'], 0, ',', '.') }}</td>
                     <td>{{ number_format($booking['harga_akhir_treatment'], 0, ',', '.') }}</td>
                     <td>
-                        <a href="{{ route('detailBooking.show', $booking['id_booking_treatment']) }}" class="btn btn-sm btn-info">
+                        <!-- Tombol Detail -->
+                        <a href="{{ route('detailBooking.show', ['id' => $booking['id_detail_booking_treatment']]) }}" class="btn btn-sm btn-info">
                             <i class="fas fa-eye"></i>
-                        </a>                        
-                        <a href="{{ route('detailBooking.update', $booking['id_booking_treatment']) }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-edit"></i>
-                        </a>                        
-                        <form action="{{ route('detailBooking.destroy', $booking['id_booking_treatment']) }}" method="POST" style="display: inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </form>
+                        </a>                 
                     </td>
                 </tr>
                 @empty
@@ -76,8 +67,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="id_user">User ID</label>
-                        <input type="number" name="id_user" class="form-control" id="id_user" required>
+                        <label for="id_user">User</label>
+                        <select name="id_user" class="form-control" id="id_user" required>
+                            <option value="">Pilih User</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user['id_user'] }}">{{ $user['nama_user'] }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="waktu_treatment">Waktu Treatment</label>
@@ -97,19 +93,33 @@
                         <input type="number" name="potongan_harga" class="form-control" id="potongan_harga" required>
                     </div>
                     <div class="form-group">
-                        <label for="details">Treatments</label>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="id_treatment">ID Treatment</label>
-                                <input type="number" name="details[0][id_treatment]" class="form-control" id="id_treatment" required>
+                                <label for="id_treatment">Treatment</label>
+                                <select name="details[0][id_treatment]" class="form-control" id="id_treatment" required>
+                                    <option value="">Pilih Treatment</option>
+                                    @foreach($treatments as $treatment)
+                                        <option value="{{ $treatment['id_treatment'] }}">{{ $treatment['nama_treatment'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="id_dokter">ID Dokter</label>
-                                <input type="number" name="details[0][id_dokter]" class="form-control" id="id_dokter">
+                                <label for="id_dokter">Dokter</label>
+                                <select name="details[0][id_dokter]" class="form-control" id="id_dokter">
+                                    <option value="">Pilih Dokter</option>
+                                    @foreach($dokters as $dokter)
+                                        <option value="{{ $dokter['id_dokter'] }}">{{ $dokter['nama_dokter'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="id_beautician">ID Beautician</label>
-                                <input type="number" name="details[0][id_beautician]" class="form-control" id="id_beautician">
+                                <label for="id_beautician">Beautician</label>
+                                <select name="details[0][id_beautician]" class="form-control" id="id_beautician">
+                                    <option value="">Pilih Beautician</option>
+                                    @foreach($beauticians as $beautician)
+                                        <option value="{{ $beautician['id_beautician'] }}">{{ $beautician['nama_beautician'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

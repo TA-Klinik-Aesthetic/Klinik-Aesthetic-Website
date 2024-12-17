@@ -9,7 +9,11 @@ class KonsultasiController extends Controller
 {
     public function indexWithDoctor()
     {
-        // Mengambil data dari API
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->get('http://127.0.0.1:8080/api/konsultasi');
+        // $data = $response->json();
+
         $response = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi');
         $data = $response->json();
 
@@ -24,7 +28,11 @@ class KonsultasiController extends Controller
 
     public function indexWithoutDoctor()
     {
-        // Mengambil data dari API
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->get('http://127.0.0.1:8080/api/konsultasi');
+        // $data = $response->json();
+
         $response = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi');
         $data = $response->json();
 
@@ -39,7 +47,13 @@ class KonsultasiController extends Controller
 
     public function create()
     {
+        // $token = session('token'); // Mendapatkan token dari session
+
         // Ambil data dari API untuk dropdown
+        
+        // $usersResponse = Http::withToken($token)->get('http://127.0.0.1:8080/api/users');
+        // $doktersResponse = Http::withToken($token)->get('http://127.0.0.1:8080/api/dokters');
+
         $usersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/users');
         $doktersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/dokters');
 
@@ -54,9 +68,12 @@ class KonsultasiController extends Controller
         return view('konsultasi.create', compact('users', 'dokters'));
     }
 
-    // Menyimpan data konsultasi dengan mengirimkan POST request ke API
     public function store(Request $request)
     {
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->post('http://127.0.0.1:8080/api/konsultasi', [
+
         $response = Http::post('https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi', [
             'id_user' => $request->id_user,
             'id_dokter' => $request->id_dokter,
@@ -64,9 +81,8 @@ class KonsultasiController extends Controller
         ]);
 
         if ($response->successful()) {
-            // Menyimpan pesan ke session
             session()->flash('success', 'Data konsultasi berhasil ditambahkan!');
-            return redirect()->route('konsultasi.create'); // Redirect ke halaman form
+            return redirect()->route('konsultasi.create');
         }
 
         session()->flash('error', 'Terjadi kesalahan saat menambahkan data!');
@@ -75,8 +91,18 @@ class KonsultasiController extends Controller
 
     public function edit($id)
     {
-        // Ambil data konsultasi berdasarkan ID
-        $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}");
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // // Ambil data konsultasi berdasarkan ID
+        // $response = Http::withToken($token)->get("http://127.0.0.1:8080/api/konsultasi/{$id}");
+        
+        // $konsultasi = $response->json()['data'];
+
+        // // Ambil semua dokter
+        // $dokters = Http::withToken($token)->get('http://127.0.0.1:8080/api/dokters')->json()['data'];
+
+        $response =Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}");
+
         $konsultasi = $response->json()['data'];
 
         // Ambil semua dokter
@@ -87,7 +113,12 @@ class KonsultasiController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Kirim data dokter ke API
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->put("http://127.0.0.1:8080/api/konsultasi/{$id}", [
+        //     'id_dokter' => $request->id_dokter,
+        // ]);
+
         $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}", [
             'id_dokter' => $request->id_dokter,
         ]);
@@ -103,6 +134,10 @@ class KonsultasiController extends Controller
 
     public function destroy($id)
     {
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->delete("http://127.0.0.1:8080/api/konsultasi/{$id}");
+
         $response = Http::delete("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}");
 
         if ($response->successful()) {
@@ -114,43 +149,48 @@ class KonsultasiController extends Controller
 
     public function show($id)
     {
-        // Ambil data konsultasi berdasarkan ID
-        $konsultasiResponse = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}");
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $konsultasiResponse = Http::withToken($token)->get("http://127.0.0.1:8080/api/konsultasi/{$id}");
+        // $usersResponse = Http::withToken($token)->get('http://127.0.0.1:8080/api/users');
+        // $doktersResponse = Http::withToken($token)->get('http://127.0.0.1:8080/api/dokters');
+        // $detailKonsultasiResponse = Http::withToken($token)->get("http://127.0.0.1:8080/api/detail-konsultasi/{$id}");
+
+         // Ambil data konsultasi berdasarkan ID
+         $konsultasiResponse = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/konsultasi/{$id}");
         
-        // Ambil data semua pengguna dan dokter
-        $usersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/users');
-        $doktersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/dokters');
-        
-        // Ambil data detail konsultasi dari API
-        $detailKonsultasiResponse = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/detail-konsultasi/{$id}");
-    
-        // Periksa jika semua API berhasil merespons
+         // Ambil data semua pengguna dan dokter
+         $usersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/users');
+         $doktersResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/dokters');
+         
+         // Ambil data detail konsultasi dari API
+         $detailKonsultasiResponse = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/detail-konsultasi/{$id}");
+
         if ($konsultasiResponse->successful() && $usersResponse->successful() && $doktersResponse->successful() && $detailKonsultasiResponse->successful()) {
             $konsultasi = $konsultasiResponse->json('data');
             $users = $usersResponse->json('data');
             $dokters = $doktersResponse->json('data');
             $detailKonsultasi = $detailKonsultasiResponse->json('data');
-    
-            // Cari nama pelanggan dan dokter berdasarkan ID
+
             $user = collect($users)->firstWhere('id_user', $konsultasi['id_user']);
             $dokter = collect($dokters)->firstWhere('id_dokter', $konsultasi['id_dokter']);
-    
-            // Tambahkan nama pelanggan dan dokter ke data konsultasi
+
             $konsultasi['nama_user'] = $user['nama_user'] ?? 'Tidak diketahui';
             $konsultasi['nama_dokter'] = $dokter['nama_dokter'] ?? 'Tidak diketahui';
             $konsultasi['detail_konsultasi'] = $detailKonsultasi;
-    
-            // Tampilkan data pada view
+
             return view('konsultasi.detail', compact('konsultasi'));
         }
-    
-        // Jika ada kesalahan, kembali ke halaman sebelumnya
+
         return redirect()->route('konsultasi.with-doctor')->with('error', 'Gagal mengambil data konsultasi.');
     }
-    
+
     public function editKeluhan($id)
     {
-        // Mengambil data detail konsultasi dari API
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->get("http://127.0.0.1:8080/api/detail-konsultasi/{$id}");
+
         $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/detail-konsultasi/{$id}");
 
         if ($response->successful()) {
@@ -163,7 +203,10 @@ class KonsultasiController extends Controller
 
     public function updateKeluhan(Request $request, $id)
     {
-        // Mengirim permintaan untuk memperbarui data keluhan dan saran
+        // $token = session('token'); // Mendapatkan token dari session
+
+        // $response = Http::withToken($token)->put("http://127.0.0.1:8080/api/detail-konsultasi/{$id}", [
+
         $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/detail-konsultasi/{$id}", [
             'keluhan_pelanggan' => $request->input('keluhan_pelanggan'),
             'saran_tindakan' => $request->input('saran_tindakan'),
@@ -175,5 +218,4 @@ class KonsultasiController extends Controller
             return back()->with('error', 'Gagal memperbarui data.');
         }
     }
-    
 }

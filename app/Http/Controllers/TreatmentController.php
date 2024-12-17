@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class TreatmentController extends Controller
 {
-    // protected $baseApiUrl = 'http://backend-klinik-aesthetic-production.up.railway.app/api/treatments';
     protected $baseApiUrl = 'https://backend-klinik-aesthetic-production.up.railway.app/api/treatments';
+    protected $apiJenisTreatment ='https://backend-klinik-aesthetic-production.up.railway.app/api/jenisTreatments';
 
 
     public function index()
@@ -16,7 +16,14 @@ class TreatmentController extends Controller
         $response = Http::get($this->baseApiUrl);
         $treatments = $response->json()['data'] ?? [];
 
-        return view('treatment.listTreatment', ['treatments' => $treatments]);
+        // Ambil data jenis treatment
+        $jenisTreatmentResponse = Http::get($this->apiJenisTreatment);
+        $jenisTreatments = $jenisTreatmentResponse->json()['data'] ?? [];
+
+        return view('treatment.listTreatment', [
+            'treatments' => $treatments,
+            'jenisTreatments' => $jenisTreatments, // Kirim data jenis treatment ke view
+        ]);
     }
 
     public function show($id)
