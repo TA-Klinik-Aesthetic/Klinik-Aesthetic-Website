@@ -36,6 +36,7 @@
                 @endphp
             </td>
         </tr>
+        
         <tr><th>Gambar</th><td><img src="{{ $treatment['gambar_treatment'] }}" width="200px"></td></tr>
     </table>
 @endsection
