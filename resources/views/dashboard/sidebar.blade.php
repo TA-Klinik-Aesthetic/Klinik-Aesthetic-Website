@@ -48,7 +48,7 @@
                 <!-- Menggunakan nama rute -->
                 <a class="collapse-item" href="{{ route('jenisTreatment.index') }}">Jenis Treatment</a>
                 <a class="collapse-item" href="{{ route('treatment.index') }}">List Treatment</a>
-                <a class="collapse-item" href="{{ route('bookingTreatment.index') }}">Booking Treatment</a>
+                <a class="collapse-item" href="{{ route('detailBooking.index') }}">Booking Treatment</a>
             </div>
         </div>
     </li>
@@ -66,19 +66,11 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ url('/kategori') }}">Lihat Kategori</a>
                 <a class="collapse-item" href="{{ url('/produk') }}">Lihat Produk</a>
+                <a class="collapse-item" href="{{ route('pembelianProduk.index') }}">Penjualan Produk</a>
             </div>
         </div>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Nav Item - Pembelian Produk -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('pembelianProduk.index') }}">
-            <span>Penjualan Produk</span>
-        </a>
-    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">

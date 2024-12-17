@@ -133,19 +133,21 @@ Route::prefix('feedback/treatment')->name('feedback.feedbackTreatment.')->group(
 });
 
 Route::prefix('booking')->name('bookingTreatment.')->group(function () {
-    Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
-    Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
+    // Route::get('/', [BookingTreatmentController::class, 'index'])->name('index');
+    // Route::get('/{id}', [BookingTreatmentController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [BookingTreatmentController::class, 'edit'])->name('edit');
     Route::delete('/{id}', [BookingTreatmentController::class, 'destroy'])->name('destroy');
 });
 
 
 Route::prefix('detailBooking')->name('detailBooking.')->group(function () {
+    Route::get('/', [DetailBookingTreatmentController::class, 'index'])->name('index');
     Route::post('/store', [DetailBookingTreatmentController::class, 'store'])->name('store');
     Route::get('/{id}', [DetailBookingTreatmentController::class, 'show'])->name('show');
     Route::put('/{id}', [DetailBookingTreatmentController::class, 'update'])->name('update');
     Route::delete('/{id}', [DetailBookingTreatmentController::class, 'destroy'])->name('destroy');
 });
+
 
 // Route untuk halaman pembelian produk
 Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->name('pembelianProduk.index');

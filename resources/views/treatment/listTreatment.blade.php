@@ -63,7 +63,14 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="id_jenis_treatment">ID Jenis Treatment</label>
-                            <input type="number" name="id_jenis_treatment" class="form-control" id="id_jenis_treatment" required>
+                            <select name="id_jenis_treatment" class="form-control" id="id_jenis_treatment" required>
+                                <option value="">Pilih Jenis Treatment</option>
+                                @foreach ($jenisTreatments as $jenisTreatment)
+                                    <option value="{{ $jenisTreatment['id_jenis_treatment'] }}">
+                                        {{ $jenisTreatment['nama_jenis_treatment'] }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="nama_treatment">Nama Treatment</label>
@@ -78,8 +85,8 @@
                             <input type="number" name="biaya_treatment" class="form-control" id="biaya_treatment" required>
                         </div>
                         <div class="form-group">
-                            <label for="estimasi_treatment">Estimasi Treatment (HH:MM:SS)</label>
-                            <input type="text" name="estimasi_treatment" class="form-control" id="estimasi_treatment" required>
+                            <label for="estimasi_treatment">Estimasi Treatment (HH:MM)</label>
+                            <input type="time" name="estimasi_treatment" class="form-control" id="estimasi_treatment" required>
                         </div>
                         <div class="form-group">
                             <label for="gambar_treatment">Gambar Treatment (URL)</label>
