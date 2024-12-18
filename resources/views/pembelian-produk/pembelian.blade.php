@@ -28,12 +28,7 @@
                 <td>{{ number_format($pembelian['harga_akhir'], 2, ',', '.') }}</td>
                 <td>
                     <a href="{{ route('pembelian-produk.show', $pembelian['id_pembelian_produk']) }}" class="btn btn-info btn-sm">Detail</a>
-                    <a href="{{ url('/pembelian-produk/' . $pembelian['id_pembelian_produk'] . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ url('/pembelian-produk/' . $pembelian['id_pembelian_produk']) }}" method="POST" style="display: inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
-                    </form>
+                    <a href="{{ route('pembelian-produk.edit', $pembelian['id_pembelian_produk']) }}" class="btn btn-warning btn-sm">Edit</a>
                 </td>
             </tr>
             @empty

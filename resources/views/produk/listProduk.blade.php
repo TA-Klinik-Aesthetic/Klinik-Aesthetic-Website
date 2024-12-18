@@ -12,9 +12,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nama Produk</th>
-                            <th>Deskripsi</th>
                             <th>Harga</th>
-                            <th>Stok</th>
                             <th>Status</th>
                             <th>Kategori</th>
                             <th>Aksi</th>
@@ -25,12 +23,11 @@
                             <tr>
                                 <td>{{ $produk['id_produk'] }}</td>
                                 <td>{{ $produk['nama_produk'] }}</td>
-                                <td>{{ $produk['deskripsi_produk'] }}</td>
                                 <td>{{ $produk['harga_produk'] }}</td>
-                                <td>{{ $produk['stok_produk'] }}</td>
                                 <td>{{ $produk['status_produk'] }}</td>
                                 <td>{{ $produk['kategori']['nama_kategori'] }}</td>
                                 <td>
+                                    <a href="{{ route('produk.show', $produk['id_produk']) }}" class="btn btn-info btn-sm">Detail</a>
                                     <a href="{{ route('produk.edit', $produk['id_produk']) }}" class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('produk.destroy', $produk['id_produk']) }}" method="POST" style="display:inline-block;">
                                         @csrf

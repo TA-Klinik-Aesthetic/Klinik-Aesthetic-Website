@@ -157,6 +157,8 @@ Route::get('/pembelian-produk', [PembelianProdukController::class, 'index'])->na
 Route::get('pembelian-produk/create', [PembelianProdukController::class, 'create'])->name('pembelian-produk.create'); // Menampilkan form tambah pembelian
 Route::post('pembelian-produk/store', [PembelianProdukController::class, 'store'])->name('pembelian-produk.store'); // Menyimpan data pembelian
 Route::get('/pembelian-produk/{id}', [PembelianProdukController::class, 'show'])->name('pembelian-produk.show');// Rute untuk menampilkan detail pembelian produk
+Route::get('/pembelian-produk/{id}/edit', [PembelianProdukController::class, 'edit'])->name('pembelian-produk.edit');
+Route::put('/pembelian-produk/{id}', [PembelianProdukController::class, 'update'])->name('pembelian-produk.update');
 
 
 // Kategorizes
@@ -174,10 +176,14 @@ Route::prefix('produk')->group(function () {
     Route::get('/', [ProdukController::class, 'index'])->name('produk.index');
     Route::get('/create', [ProdukController::class, 'create'])->name('produk.create');
     Route::post('/', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/{id}/detail', [ProdukController::class, 'show'])->name('produk.show');
     Route::get('/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
+
+
+
 Route::get('/jadwal-dokter', function () {
     return view('jadwal.jadwaldokter');
 })->name('dokter.jadwaldokter');

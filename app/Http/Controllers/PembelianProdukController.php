@@ -85,5 +85,50 @@ class PembelianProdukController extends Controller
         // Redirect back with error if any API fails
         return redirect()->back()->with('error', 'Gagal mengambil data pembelian, pengguna, atau produk.');
     }
+
+    public function edit($id)
+    {
+        $purchaseResponse = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/products-purchase/pembelian/$id");
+        $pembelian = $purchaseResponse->json();
+    
+        // Map detail_pembelian ke produk
+        $pembelian['produk'] = collect($pembelian['detail_pembelian'])->map(function ($detail) {
+            return [
+                'id_produk' => $detail['id_produk'],
+                'jumlah_produk' => $detail['jumlah_produk']
+            ];
+        })->toArray();
+    
+        $productResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/produk');
+        $products = $productResponse->json();
+    
+        if ($purchaseResponse->successful() && $productResponse->successful()) {
+            return view('pembelian-produk.editPembelianProduk', [
+                'pembelian' => $pembelian,
+                'products' => $products
+            ]);
+        }
+    
+        return redirect()->back()->with('error', 'Gagal mengambil data pembelian, pengguna, atau produk.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'potongan_harga' => 'required|numeric',
+            'produk' => 'required|array',
+            'produk.*.id_produk' => 'required|integer',
+            'produk.*.jumlah_produk' => 'required|integer',
+        ]);
+
+        // Kirim data ke API
+        $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/products-purchase/pembelian/$id", $data);
+
+        if ($response->ok()) {
+            return redirect()->route('pembelianProduk.index')->with('success', 'Data berhasil diperbarui!');
+        } else {
+            return back()->withErrors('Gagal memperbarui data. Silakan coba lagi.');
+        }
+    }
     
 }

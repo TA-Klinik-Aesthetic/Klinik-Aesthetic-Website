@@ -44,32 +44,36 @@ class KategoriController extends Controller
 
     public function edit($id)
     {
-        // Ambil data kategori berdasarkan ID
         $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}");
-        $item = $response->json()['data'];
 
-        return view('kategori.edit');
+        if ($response->successful()) {
+            // Ambil data langsung dari respons
+            $kategori = $response->json();
+            return view('produk.editKategori', compact('kategori'));
+        }
+
+        return redirect()->route('kategori.index')->with('error', 'Kategori tidak ditemukan.');
     }
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
         $validated = $request->validate([
             'nama_kategori' => 'required|string|max:255',
         ]);
 
+        // Kirim data kategori untuk diperbarui ke API
+        $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}", [
+            'nama_kategori' => $validated['nama_kategori'],
+        ]);
 
-        // Kirim data kategori ke API
-        $response = Http::put("https://backend-klinik-aesthetic-production.up.railway.app/api/kategori/{$id}", $data);
-
+        // Cek apakah API memberikan respons yang sukses
         if ($response->successful()) {
-            session()->flash('success', 'Nama Kategori berhasil diperbarui!');
-            return redirect()->route('kategori.index');
+            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
         }
 
-        session()->flash('error', 'Terjadi kesalahan saat memperbarui kategori!');
-        return redirect()->back();
+        // Jika gagal, tampilkan pesan kesalahan yang lebih detail
+        $errorMessage = $response->json()['message'] ?? 'Gagal memperbarui kategori.';
+        return back()->with('error', $errorMessage);
     }
 
     public function destroy($id)
@@ -82,5 +86,4 @@ class KategoriController extends Controller
             return redirect()->route('kategori.index')->with('error', 'Gagal menghapus data');
         }
     }
-
 }

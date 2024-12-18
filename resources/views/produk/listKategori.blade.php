@@ -12,6 +12,8 @@
                         <tr>
                             <th>ID Kategori</th>
                             <th>Nama Kategori</th>
+                            <th>Aksi</th>
+
                         </tr>
                     </thead>
                     <tbody>

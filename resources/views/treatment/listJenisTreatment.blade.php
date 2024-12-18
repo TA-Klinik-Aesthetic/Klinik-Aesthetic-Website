@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($jenisTreatments as $jenis)
+            @foreach($jenisTreatments as $index => $jenis)
                 <tr>
                     <td>{{ $jenis['id_jenis_treatment'] }}</td>
                     <td>{{ $jenis['nama_jenis_treatment'] }}</td>
@@ -26,7 +26,7 @@
                         </a>
 
                         <button type="button" class="btn btn-warning btn-sm" title="Edit" 
-                                data-toggle="modal" data-target="#editJenisTreatmentModal-{{ $jenis['id_jenis_treatment'] }}">
+                                data-toggle="modal" data-target="#editJenisTreatmentModal-{{ $index }}">
                             <i class="fas fa-edit"></i>
                         </button>
 
@@ -69,32 +69,34 @@
         </div>
     </div>
 
-    <div class="modal fade" id="editJenisTreatmentModal-{{ $jenis['id_jenis_treatment'] }}" tabindex="-1" role="dialog" aria-labelledby="editJenisTreatmentModalLabel-{{ $jenis['id_jenis_treatment'] }}" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form action="{{ route('jenisTreatment.update', $jenis['id_jenis_treatment']) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editJenisTreatmentModalLabel-{{ $jenis['id_jenis_treatment'] }}">Edit Jenis Treatment</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="nama_jenis_treatment-{{ $jenis['id_jenis_treatment'] }}">Nama Jenis Treatment</label>
-                            <input type="text" name="nama_jenis_treatment" class="form-control" 
-                                   id="nama_jenis_treatment-{{ $jenis['id_jenis_treatment'] }}" 
-                                   value="{{ $jenis['nama_jenis_treatment'] }}" required>
+    @foreach($jenisTreatments as $index => $jenis)
+        <div class="modal fade" id="editJenisTreatmentModal-{{ $index }}" tabindex="-1" role="dialog" aria-labelledby="editJenisTreatmentModalLabel-{{ $index }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{ route('jenisTreatment.update', $jenis['id_jenis_treatment']) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editJenisTreatmentModalLabel-{{ $index }}">Edit Jenis Treatment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nama_jenis_treatment-{{ $index }}">Nama Jenis Treatment</label>
+                                <input type="text" name="nama_jenis_treatment" class="form-control" 
+                                       id="nama_jenis_treatment-{{ $index }}" 
+                                       value="{{ $jenis['nama_jenis_treatment'] }}" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection

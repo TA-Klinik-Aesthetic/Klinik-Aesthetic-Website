@@ -22,7 +22,6 @@
                                 <td>{{ $item['waktu_konsultasi'] }}</td>
                                 <td>{{ $item['dokter']['nama_dokter'] ?? 'Tidak ada dokter' }}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary">Detail</a>
                                     <a href="{{ route('konsultasi.edit', $item['id_konsultasi']) }}" class="btn btn-warning">Edit</a>
                                 </td>
                             </tr>

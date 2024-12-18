@@ -32,8 +32,13 @@
                     <label for="status_produk" class="form-label">Status Produk</label>
                     <select class="form-control" id="status_produk" name="status_produk" required>
                         <option value="Tersedia">Tersedia</option>
-                        <option value="Tidak Tersedia">Tidak Tersedia</option>
+                        <option value="Habis">Habis</option>
                     </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="gambar_produk">Gambar Produk (URL)</label>
+                    <input type="url" name="gambar_produk" class="form-control" id="gambar_produk" required>
                 </div>
 
                 <div class="mb-3">

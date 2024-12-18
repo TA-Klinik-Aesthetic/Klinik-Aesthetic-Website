@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="h3 mb-2 text-gray-800">Tambah Booking</h1>
-    <a href="{{ route('konsultasi.create') }}" class="btn btn-success mb-4">Add</a>
+    <a href="{{ route('konsultasi.create') }}" class="btn btn-success mb-4"><i class="fas fa-plus"></i>   Tambah Booking</a>
 
     <div class="card shadow mb-4">
         <div class="card-body">
