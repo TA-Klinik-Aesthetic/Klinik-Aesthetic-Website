@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Jadwal Praktik Dokter</h1>
 
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#jadwalModal">Tambah Jadwal</button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#jadwalModal"  onclick="showAddModal()">Tambah Jadwal</button>
 
     @if (isset($jadwals) && $jadwals->count() > 0)
         <div id="jadwalTable">
@@ -52,11 +52,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="jadwalModalLabel">Tambah Jadwal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="jadwalModalLabel" >Tambah Jadwal</h5>
+                    <!-- <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#jadwalModal">Tambah Jadwal</button> -->
                 </div>
                 <form action="{{ route('jadwal-dokter.store') }}" method="POST">
                     @csrf
+                    @method('POST')
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="idDokter" class="form-label">ID Dokter</label>
@@ -105,7 +106,7 @@
                             <label for="editIdDokter" class="form-label">ID Dokter</label>
                             <input type="number" class="form-control" id="editIdDokter" name="id_dokter" required>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3"> 
                             <label for="editHari" class="form-label">Hari</label>
                             <input type="text" class="form-control" id="editHari" name="hari" required>
                         </div>
@@ -132,7 +133,7 @@
     </div>
 </div>
 
-<script>
+<script>  
 function showEditModal(jadwal) {
     document.getElementById('editIdJadwal').value = jadwal.id_jadwal_praktik_dokter;
     document.getElementById('editIdDokter').value = jadwal.id_dokter;
@@ -146,5 +147,18 @@ function showEditModal(jadwal) {
 
     new bootstrap.Modal(document.getElementById('editJadwalModal')).show();
 }
+
+function showAddModal() {
+    // Reset semua input di form "Tambah Jadwal"
+    document.querySelector('#jadwalModal input[name="id_dokter"]').value = '';
+    document.querySelector('#jadwalModal input[name="hari"]').value = '';
+    document.querySelector('#jadwalModal input[name="tgl_kerja"]').value = '';
+    document.querySelector('#jadwalModal input[name="jam_mulai"]').value = '';
+    document.querySelector('#jadwalModal input[name="jam_selesai"]').value = '';
+
+    // Tampilkan modal "Tambah Jadwal"
+    new bootstrap.Modal(document.getElementById('jadwalModal')).show();
+}
+
 </script>
 @endsection

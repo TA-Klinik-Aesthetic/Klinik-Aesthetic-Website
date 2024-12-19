@@ -190,7 +190,7 @@ Route::prefix('jadwal-dokter')->group(function () {
 Route::prefix('jadwal-beautician')->group(function () {
     Route::get('/', [JadwalBeauticianController::class, 'index'])->name('jadwal-beautician.index');
     Route::post('/', [JadwalBeauticianController::class, 'store'])->name('jadwal-beautician.store');
-    // Route::put('/{id}', [JadwalDokterController::class, 'update'])->name('jadwal-dokter.update');
+    Route::put('/{id}', [JadwalBeauticianController::class, 'update'])->name('jadwal-dokter.update');
     Route::delete('/{id}', [JadwalBeauticianController::class, 'destroy'])->name('jadwal-beautician.destroy');
 });
 

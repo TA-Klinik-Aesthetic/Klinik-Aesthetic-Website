@@ -50,6 +50,21 @@ class JadwalBeauticianController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'id_beautician' => 'required|integer',
+            'hari' => 'required|string',
+            'tgl_kerja' => 'required|date',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required',
+        ]);
+
+        Http::withoutVerifying()->put("https://backend-klinik-aesthetic-production.up.railway.app/api/jadwal-beautician/{$id}", $data);
+
+        return redirect()->route('jadwal-dokter.index')->with('success', 'Jadwal berhasil diupdate!');
+    }
+
     // Hapus jadwal beautician
     public function destroy($id)
     {
