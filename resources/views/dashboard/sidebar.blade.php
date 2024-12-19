@@ -71,14 +71,21 @@
         </div>
     </li>
 
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Nav Item - Produk -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ url('/jadwal-dokter') }}">
-            <span>Jadwal Dokter</span>
+        <a class="nav-link" data-toggle="collapse" data-target="#collapseJadwal" aria-expanded="true"
+            aria-controls="collapseJadwal">
+            <span>Jadwal</span>
         </a>
+        <div id="collapseJadwal" class="collapse" aria-labelledby="headingJadwal" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ url('/jadwal-dokter') }}">Jadwal Dokter</a>
+                <a class="collapse-item" href="{{ url('/jadwal-beautician') }}">Jadwal Beautician</a>
+            </div>
+        </div>
     </li>
 
 
