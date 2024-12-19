@@ -4,9 +4,9 @@
 <div class="container mt-5">
     <h1 class="mb-4">Jadwal Praktik Beautician</h1>
 
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#jadwalModal">Tambah Jadwal</button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addJadwalModal" onclick="showAddModal()">Tambah Jadwal</button>
 
-    @if ($grouped && $grouped->isNotEmpty())
+    @if (isset($grouped) && $grouped->isNotEmpty())
         @foreach ($grouped as $hari => $jadwals)
             <h3>{{ ucfirst($hari) }}</h3>
             <table class="table table-bordered">
@@ -22,29 +22,21 @@
                 </thead>
                 <tbody>
                     @foreach ($jadwals as $jadwal)
-                    <tr>
-                        <td>{{ $jadwal['id_beautician'] }}</td>
-                        <td>{{ $jadwal['beautician']['nama_beautician'] ?? 'Tidak Diketahui' }}</td>
-                        <td>{{ $jadwal['tgl_kerja'] }}</td>
-                        <td>{{ $jadwal['jam_mulai'] }}</td>
-                        <td>{{ $jadwal['jam_selesai'] }}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#jadwalModal" 
-                                    data-id="{{ $jadwal['id_jadwal_praktik_beautician'] }}"
-                                    data-id-beautician="{{ $jadwal['id_beautician'] }}"
-                                    data-hari="{{ $jadwal['hari'] }}"
-                                    data-tgl-kerja="{{ $jadwal['tgl_kerja'] }}"
-                                    data-jam-mulai="{{ $jadwal['jam_mulai'] }}"
-                                    data-jam-selesai="{{ $jadwal['jam_selesai'] }}">
-                                Edit
-                            </button>
-                            <form action="{{ route('jadwal-beautician.destroy', $jadwal['id_jadwal_praktik_beautician']) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ $jadwal['id_beautician'] }}</td>
+                            <td>{{ $jadwal['beautician']['nama_beautician'] ?? 'Tidak Diketahui' }}</td>
+                            <td>{{ $jadwal['tgl_kerja'] }}</td>
+                            <td>{{ $jadwal['jam_mulai'] }}</td>
+                            <td>{{ $jadwal['jam_selesai'] }}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="showEditModal({{ json_encode($jadwal) }})">Edit</button>
+                                <form action="{{ route('jadwal-beautician.destroy', $jadwal['id_jadwal_praktik_beautician']) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -53,37 +45,36 @@
         <p class="text-muted">Belum ada jadwal yang tersedia.</p>
     @endif
 
-    <!-- Modal -->
-    <div class="modal fade" id="jadwalModal" tabindex="-1" aria-labelledby="jadwalModalLabel" aria-hidden="true">
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="addJadwalModal" tabindex="-1" aria-labelledby="addJadwalModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('jadwal-beautician.store') }}" method="POST" id="jadwalForm">
+                <form action="{{ route('jadwal-beautician.store') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="jadwalModalLabel">Tambah/Edit Jadwal</h5>
+                        <h5 class="modal-title" id="addJadwalModalLabel">Tambah Jadwal</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="jadwalId">
                         <div class="mb-3">
-                            <label for="idBeautician" class="form-label">ID Beautician</label>
-                            <input type="number" class="form-control" name="id_beautician" id="idBeautician" required>
+                            <label for="addIdBeautician" class="form-label">ID Beautician</label>
+                            <input type="number" class="form-control" name="id_beautician" id="addIdBeautician" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="hari" class="form-label">Hari</label>
-                            <input type="text" class="form-control" name="hari" id="hari" required>
+                            <label for="addHari" class="form-label">Hari</label>
+                            <input type="text" class="form-control" name="hari" id="addHari" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="tglKerja" class="form-label">Tanggal Kerja</label>
-                            <input type="date" class="form-control" name="tgl_kerja" id="tglKerja" required>
+                            <label for="addTglKerja" class="form-label">Tanggal Kerja</label>
+                            <input type="date" class="form-control" name="tgl_kerja" id="addTglKerja" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="jamMulai" class="form-label">Jam Mulai</label>
-                            <input type="time" class="form-control" name="jam_mulai" id="jamMulai" required>
+                            <label for="addJamMulai" class="form-label">Jam Mulai</label>
+                            <input type="time" class="form-control" name="jam_mulai" id="addJamMulai" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="jamSelesai" class="form-label">Jam Selesai</label>
-                            <input type="time" class="form-control" name="jam_selesai" id="jamSelesai" required>
+                            <label for="addJamSelesai" class="form-label">Jam Selesai</label>
+                            <input type="time" class="form-control" name="jam_selesai" id="addJamSelesai" required autocomplete="off">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -94,25 +85,76 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="editJadwalModal" tabindex="-1" aria-labelledby="editJadwalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="POST" id="editJadwalForm">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editJadwalModalLabel">Edit Jadwal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editJadwalId" name="id">
+                        <div class="mb-3">
+                            <label for="editIdBeautician" class="form-label">ID Beautician</label>
+                            <input type="number" class="form-control" name="id_beautician" id="editIdBeautician" required autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editHari" class="form-label">Hari</label>
+                            <input type="text" class="form-control" name="hari" id="editHari" required autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTglKerja" class="form-label">Tanggal Kerja</label>
+                            <input type="date" class="form-control" name="tgl_kerja" id="editTglKerja" required autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editJamMulai" class="form-label">Jam Mulai</label>
+                            <input type="time" class="form-control" name="jam_mulai" id="editJamMulai" required autocomplete="off">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editJamSelesai" class="form-label">Jam Selesai</label>
+                            <input type="time" class="form-control" name="jam_selesai" id="editJamSelesai" required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    const modal = document.getElementById('jadwalModal');
-    modal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const id = button.getAttribute('data-id');
-        const idBeautician = button.getAttribute('data-id-beautician');
-        const hari = button.getAttribute('data-hari');
-        const tglKerja = button.getAttribute('data-tgl-kerja');
-        const jamMulai = button.getAttribute('data-jam-mulai');
-        const jamSelesai = button.getAttribute('data-jam-selesai');
+function showEditModal(jadwal) {
+    document.getElementById('editJadwalId').value = jadwal.id_jadwal_praktik_beautician;
+    document.getElementById('editIdBeautician').value = jadwal.id_beautician;
+    document.getElementById('editHari').value = jadwal.hari;
+    document.getElementById('editTglKerja').value = jadwal.tgl_kerja;
+    document.getElementById('editJamMulai').value = jadwal.jam_mulai;
+    document.getElementById('editJamSelesai').value = jadwal.jam_selesai;
 
-        document.getElementById('jadwalId').value = id || '';
-        document.getElementById('idBeautician').value = idBeautician || '';
-        document.getElementById('hari').value = hari || '';
-        document.getElementById('tglKerja').value = tglKerja || '';
-        document.getElementById('jamMulai').value = jamMulai || '';
-        document.getElementById('jamSelesai').value = jamSelesai || '';
-    });
+    const form = document.getElementById('editJadwalForm');
+    form.action = `/jadwal-beautician/${jadwal.id_jadwal_praktik_beautician}`;
+
+    new bootstrap.Modal(document.getElementById('editJadwalModal')).show();
+}
+
+function showAddModal() {
+    // Reset all input fields in the "Tambah Jadwal" modal
+    document.querySelector('#addJadwalModal input[name="id_beautician"]').value = '';
+    document.querySelector('#addJadwalModal input[name="hari"]').value = '';
+    document.querySelector('#addJadwalModal input[name="tgl_kerja"]').value = '';
+    document.querySelector('#addJadwalModal input[name="jam_mulai"]').value = '';
+    document.querySelector('#addJadwalModal input[name="jam_selesai"]').value = '';
+
+    // Show the "Tambah Jadwal" modal
+    new bootstrap.Modal(document.getElementById('addJadwalModal')).show();
+}
 </script>
 @endsection
