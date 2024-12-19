@@ -12,7 +12,8 @@ use App\Http\Controllers\FeedbackTreatmentController;
 
 use App\Http\Controllers\DetailBookingTreatmentController;
 use App\Http\Controllers\BookingTreatmentController;
-
+use App\Http\Controllers\JadwalDokterController;
+use App\Http\Controllers\JadwalBeauticianController;
 use App\Http\Controllers\PembelianProdukController;
 
 
@@ -178,10 +179,26 @@ Route::prefix('produk')->group(function () {
     Route::put('/{id}', [ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 });
-Route::get('/jadwal-dokter', function () {
-    return view('jadwal.jadwaldokter');
-})->name('dokter.jadwaldokter');
 
-Route::get('/jadwal-beautician', function () {
-    return view('jadwal.jadwalbeautician');
-})->name('beautician.jadwalbeautician');
+Route::prefix('jadwal-dokter')->group(function () {
+    Route::get('/', [JadwalDokterController::class, 'index'])->name('jadwal-dokter.index');
+    Route::post('/', [JadwalDokterController::class, 'store'])->name('jadwal-dokter.store');
+    Route::put('/{id}', [JadwalDokterController::class, 'update'])->name('jadwal-dokter.update');
+    Route::delete('/{id}', [JadwalDokterController::class, 'destroy'])->name('jadwal-dokter.destroy');
+});
+
+Route::prefix('jadwal-beautician')->group(function () {
+    Route::get('/', [JadwalBeauticianController::class, 'index'])->name('jadwal-beautician.index');
+    Route::post('/', [JadwalBeauticianController::class, 'store'])->name('jadwal-beautician.store');
+    // Route::put('/{id}', [JadwalDokterController::class, 'update'])->name('jadwal-dokter.update');
+    Route::delete('/{id}', [JadwalBeauticianController::class, 'destroy'])->name('jadwal-beautician.destroy');
+});
+
+// Route::get('/jadwal-dokter', [JadwalDokterController::class, 'index'])->name('jadwal-dokter.index');
+// Route::post('/jadwal-dokter', [JadwalDokterController::class, 'store'])->name('jadwal-dokter.store');
+// Route::put('/jadwal-dokter/{id}', [JadwalDokterController::class, 'update'])->name('jadwal-dokter.update');
+// Route::delete('/jadwal-dokter/{id}', [JadwalDokterController::class, 'destroy'])->name('jadwal-dokter.destroy');
+
+// Route::get('/jadwal-beautician', function () {
+//     return view('jadwal.jadwalbeautician');
+// })->name('beautician.jadwalbeautician');

@@ -4,150 +4,115 @@
 <div class="container mt-5">
     <h1 class="mb-4">Jadwal Praktik Beautician</h1>
 
-    <button class="btn btn-primary mb-3" onclick="showAddModal()">Tambah Jadwal</button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#jadwalModal">Tambah Jadwal</button>
 
-    <div id="jadwalTable"></div>
+    @if ($grouped && $grouped->isNotEmpty())
+        @foreach ($grouped as $hari => $jadwals)
+            <h3>{{ ucfirst($hari) }}</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID Beautician</th>
+                        <th>Nama Beautician</th>
+                        <th>Tanggal</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($jadwals as $jadwal)
+                    <tr>
+                        <td>{{ $jadwal['id_beautician'] }}</td>
+                        <td>{{ $jadwal['beautician']['nama_beautician'] ?? 'Tidak Diketahui' }}</td>
+                        <td>{{ $jadwal['tgl_kerja'] }}</td>
+                        <td>{{ $jadwal['jam_mulai'] }}</td>
+                        <td>{{ $jadwal['jam_selesai'] }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#jadwalModal" 
+                                    data-id="{{ $jadwal['id_jadwal_praktik_beautician'] }}"
+                                    data-id-beautician="{{ $jadwal['id_beautician'] }}"
+                                    data-hari="{{ $jadwal['hari'] }}"
+                                    data-tgl-kerja="{{ $jadwal['tgl_kerja'] }}"
+                                    data-jam-mulai="{{ $jadwal['jam_mulai'] }}"
+                                    data-jam-selesai="{{ $jadwal['jam_selesai'] }}">
+                                Edit
+                            </button>
+                            <form action="{{ route('jadwal-beautician.destroy', $jadwal['id_jadwal_praktik_beautician']) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endforeach
+    @else
+        <p class="text-muted">Belum ada jadwal yang tersedia.</p>
+    @endif
 
     <!-- Modal -->
     <div class="modal fade" id="jadwalModal" tabindex="-1" aria-labelledby="jadwalModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="jadwalModalLabel">Tambah/Edit Jadwal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="jadwalForm">
-                        <input type="hidden" id="jadwalId">
+                <form action="{{ route('jadwal-beautician.store') }}" method="POST" id="jadwalForm">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="jadwalModalLabel">Tambah/Edit Jadwal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="jadwalId">
                         <div class="mb-3">
                             <label for="idBeautician" class="form-label">ID Beautician</label>
-                            <input type="number" class="form-control" id="idBeautician" required>
+                            <input type="number" class="form-control" name="id_beautician" id="idBeautician" required>
                         </div>
                         <div class="mb-3">
                             <label for="hari" class="form-label">Hari</label>
-                            <input type="text" class="form-control" id="hari" required>
+                            <input type="text" class="form-control" name="hari" id="hari" required>
                         </div>
                         <div class="mb-3">
                             <label for="tglKerja" class="form-label">Tanggal Kerja</label>
-                            <input type="date" class="form-control" id="tglKerja" required>
+                            <input type="date" class="form-control" name="tgl_kerja" id="tglKerja" required>
                         </div>
                         <div class="mb-3">
                             <label for="jamMulai" class="form-label">Jam Mulai</label>
-                            <input type="time" class="form-control" id="jamMulai" required>
+                            <input type="time" class="form-control" name="jam_mulai" id="jamMulai" required>
                         </div>
                         <div class="mb-3">
                             <label for="jamSelesai" class="form-label">Jam Selesai</label>
-                            <input type="time" class="form-control" id="jamSelesai" required>
+                            <input type="time" class="form-control" name="jam_selesai" id="jamSelesai" required>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        loadJadwal();
+    const modal = document.getElementById('jadwalModal');
+    modal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const idBeautician = button.getAttribute('data-id-beautician');
+        const hari = button.getAttribute('data-hari');
+        const tglKerja = button.getAttribute('data-tgl-kerja');
+        const jamMulai = button.getAttribute('data-jam-mulai');
+        const jamSelesai = button.getAttribute('data-jam-selesai');
+
+        document.getElementById('jadwalId').value = id || '';
+        document.getElementById('idBeautician').value = idBeautician || '';
+        document.getElementById('hari').value = hari || '';
+        document.getElementById('tglKerja').value = tglKerja || '';
+        document.getElementById('jamMulai').value = jamMulai || '';
+        document.getElementById('jamSelesai').value = jamSelesai || '';
     });
-
-    function loadJadwal() {
-        axios.get('https://backend-klinik-aesthetic-production.up.railway.app/api/jadwal-beautician')
-            .then(response => {
-                const data = response.data;
-                const grouped = data.reduce((acc, jadwal) => {
-                    if (!acc[jadwal.hari]) {
-                        acc[jadwal.hari] = [];
-                    }
-                    acc[jadwal.hari].push(jadwal);
-                    return acc;
-                }, {});
-
-                let html = '';
-                for (const [hari, jadwals] of Object.entries(grouped)) {
-                    html += `<h3>${hari}</h3>`;
-                    html += '<table class="table table-bordered">';
-                    html += '<thead><tr><th>ID Beautician</th><th>Nama Beautician</th><th>Tanggal</th><th>Jam Mulai</th><th>Jam Selesai</th><th>Aksi</th></tr></thead>';
-                    html += '<tbody>';
-
-                    jadwals.forEach(jadwal => {
-                        html += `<tr>
-                            <td>${jadwal.id_beautician}</td>
-                            <td>${jadwal.beautician?.nama_beautician || 'Tidak Diketahui'}</td>
-                            <td>${jadwal.tgl_kerja}</td>
-                            <td>${jadwal.jam_mulai}</td>
-                            <td>${jadwal.jam_selesai}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick='showEditModal(${JSON.stringify(jadwal)})'>Edit</button>
-                                <button class="btn btn-danger btn-sm" onclick="deleteJadwal(${jadwal.id_jadwal_praktik_beautician})">Hapus</button>
-                            </td>
-                        </tr>`;
-                    });
-
-                    html += '</tbody></table>';
-                }
-
-                document.getElementById('jadwalTable').innerHTML = html;
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
-
-    function showAddModal() {
-        document.getElementById('jadwalForm').reset();
-        document.getElementById('jadwalId').value = '';
-        new bootstrap.Modal(document.getElementById('jadwalModal')).show();
-    }
-
-    function showEditModal(jadwal) {
-        document.getElementById('jadwalId').value = jadwal.id_jadwal_praktik_beautician;
-        document.getElementById('idBeautician').value = jadwal.id_beautician;
-        document.getElementById('hari').value = jadwal.hari;
-        document.getElementById('tglKerja').value = jadwal.tgl_kerja;
-        document.getElementById('jamMulai').value = jadwal.jam_mulai;
-        document.getElementById('jamSelesai').value = jadwal.jam_selesai;
-        new bootstrap.Modal(document.getElementById('jadwalModal')).show();
-    }
-
-    document.getElementById('jadwalForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const id = document.getElementById('jadwalId').value;
-        const data = {
-            id_beautician: document.getElementById('idBeautician').value,
-            hari: document.getElementById('hari').value,
-            tgl_kerja: document.getElementById('tglKerja').value,
-            jam_mulai: document.getElementById('jamMulai').value,
-            jam_selesai: document.getElementById('jamSelesai').value,
-        };
-
-        const url = id ? `https://backend-klinik-aesthetic-production.up.railway.app/api/jadwal-beautician/${id}` : 'http://127.0.0.1:8080/api/jadwal-beautician';
-        const method = id ? 'put' : 'post';
-
-        axios[method](url, id ? { ...data, id_jadwal_praktik_beautician: id } : data)
-            .then(() => {
-                new bootstrap.Modal(document.getElementById('jadwalModal')).hide();
-                loadJadwal();
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    });
-
-    function deleteJadwal(id) {
-        if (confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) {
-            axios.delete(`http://127.0.0.1:8080/api/jadwal-beautician/${id}`)
-                .then(() => {
-                    loadJadwal();
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-    }
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
