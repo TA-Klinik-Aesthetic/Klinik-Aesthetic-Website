@@ -52,7 +52,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $response = Http::post('https://backend-klinik-aesthetic-production.up.railway.app/api/login', [
+        $response = Http::withoutVerifying()->post('https://backend-klinik-aesthetic-production.up.railway.app/api/login', [
             'email' => $request->email,
             'password' => $request->password,
         ]);
