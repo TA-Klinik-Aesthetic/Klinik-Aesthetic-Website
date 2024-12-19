@@ -22,7 +22,8 @@
                         <td>{{ $feedback['rating'] }}</td>
                         <td>{{ $feedback['teks_feedback'] }}</td>
                         <td>
-                            <a href="{{ route('feedback.feedbackKonsultasi.show', $feedback['id_konsultasi']) }}" class="btn btn-primary btn-sm">Detail</a>
+                            <a href="{{ route('feedback.feedbackKonsultasi.show', $feedback['id_feedback_konsultasi']) }}" class="btn btn-primary btn-sm">Detail</a>
+
                         </td>
                     </tr>
                 @endforeach
