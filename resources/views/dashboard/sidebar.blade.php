@@ -28,8 +28,8 @@
         <div id="collapseKonsultasi" class="collapse" aria-labelledby="headingKonsultasi"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ url('/konsultasi/without-doctor') }}">Booking Konsultasi Pelanggan</a>
-                <a class="collapse-item" href="{{ url('/konsultasi/with-doctor') }}">Daftar Booking Konsultasi</a>
+                <a class="collapse-item" href="{{ url('/konsultasi/without-doctor') }}">Konsultasi Pelanggan</a>
+                <a class="collapse-item" href="{{ url('/konsultasi/with-doctor') }}">Daftar Booking</a>
             </div>
         </div>
     </li>
