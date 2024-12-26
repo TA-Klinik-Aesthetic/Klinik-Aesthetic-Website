@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Daftar Pembelian Produk</h1>
+    <h1 class="mb-4">Daftar Penjualan Produk</h1>
     <a href="{{ route('pembelian-produk.create') }}" class="btn btn-success mb-4">Add</a>
 
     <table class="table table-bordered">
