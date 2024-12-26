@@ -1,7 +1,7 @@
 @extends('dashboard.index')
 
 @section('content')
-<h1 class="h3 mb-2 text-gray-800">Lihat Booking</h1>
+<h1 class="h3 mb-2 text-gray-800">Daftar Booking Konsultasi Pelanggan</h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">
