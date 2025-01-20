@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Tambah Pembelian Produk</h1>
+    <h1 class="mb-4">Tambah Penjualan Produk</h1>
 
     <form action="{{ url('pembelian-produk/store') }}" method="POST">
         @csrf

@@ -13,7 +13,7 @@ class ProdukController extends Controller
         $response = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/produk'); // Ganti URL ini sesuai API Anda
 
         if ($response->successful()) {
-            $produkList = $response->json();
+            $produkList = $response->json('data'); // Hanya ambil bagian 'data'
         } else {
             $produkList = []; // Jika gagal, gunakan array kosong
         }
@@ -47,7 +47,7 @@ class ProdukController extends Controller
         $response = Http::get("https://backend-klinik-aesthetic-production.up.railway.app/api/produk/{$id}");
 
         if ($response->successful()) {
-            $produk = $response->json(); // Mendapatkan data produk
+            $produk = $response->json('data'); // Mendapatkan data produk
             return view('produk.detailProduk', compact('produk'));
         }
 
@@ -66,7 +66,7 @@ class ProdukController extends Controller
 
         // Pastikan kedua API berhasil diakses
         if ($produkResponse->successful() && $kategoriResponse->successful()) {
-            $produk = $produkResponse->json();
+            $produk = $produkResponse->json('data');
             $kategoriList = $kategoriResponse->json(); // Tidak perlu mengambil 'data', karena data kategori langsung berupa array
 
             return view('produk.editProduk', [

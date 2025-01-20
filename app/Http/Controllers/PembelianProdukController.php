@@ -34,7 +34,7 @@ class PembelianProdukController extends Controller
 
         // Fetch products
         $productResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/produk');
-        $products = $productResponse->json();
+        $products = $productResponse->json('data');
 
         return view('pembelian-produk.createPembelian', compact('users', 'products'));
     }
@@ -71,7 +71,7 @@ class PembelianProdukController extends Controller
     
         // Fetch products
         $productResponse = Http::get('https://backend-klinik-aesthetic-production.up.railway.app/api/produk');
-        $products = $productResponse->json();
+        $products = $productResponse->json('data');
     
         // Check if the API responses are successful
         if ($purchaseResponse->successful() && $userResponse->successful() && $productResponse->successful()) {
